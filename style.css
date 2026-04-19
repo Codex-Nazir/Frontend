@@ -320,3 +320,109 @@ section {
     50% { transform: translateY(-25px); }
     100% { transform: translateY(0px); }
 }
+.service-card {
+    background: #111c33;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;   /* 🔥 this creates proper spacing */
+}
+
+.service-card h3 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.service-card p {
+    margin-bottom: 10px;
+    color: #cbd5e1;
+}
+
+/* 🔥 Fix button spacing */
+.service-card .btn {
+    margin-top: 15px;
+    display: inline-block;
+}
+.about {
+    background: #f8fafc;
+    padding: 100px 0;
+}
+
+/* 🔥 Proper 2-column layout restored */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+/* TEXT SIDE FIX */
+.about-text h3 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #1e293b;
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    color: #64748b;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+/* SKILLS FIX */
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.skill-tags span {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+/* 🔥 IMAGE / PROFILE FIX */
+.about-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* PROFILE CARD RESTORE */
+.profile-card {
+    position: relative;
+    width: 320px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+}
+
+/* IMAGE FIX */
+.profile-card img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+}
+
+/* MOBILE RESPONSIVE FIX */
+@media (max-width: 768px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .profile-card {
+        width: 100%;
+        max-width: 320px;
+        margin: auto;
+    }
+}
