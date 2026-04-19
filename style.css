@@ -426,3 +426,29 @@ section {
         margin: auto;
     }
 }
+.profile-card {
+    position: relative;
+    width: 320px;
+    height: 420px; /* 🔥 FIX: forces full coverage */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+}
+
+/* make image fully cover */
+.profile-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.profile-card {
+    animation: floatCard 6s ease-in-out infinite;
+}
+
+/* same floating effect as hero */
+@keyframes floatCard {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
