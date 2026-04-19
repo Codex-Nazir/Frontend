@@ -473,3 +473,65 @@ section {
     background: #3b82f6;
     color: white;
 }
+.social-footer {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    padding: 30px 0;
+}
+
+/* ICON CARD STYLE */
+.social-icon {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-size: 22px;
+
+    transition: all 0.4s ease;
+    animation: floatIcon 4s ease-in-out infinite;
+}
+
+/* LABEL (hidden like Apple style) */
+.social-icon span {
+    position: absolute;
+    bottom: -30px;
+    font-size: 12px;
+    opacity: 0;
+    transition: 0.3s;
+    color: white;
+}
+
+/* HOVER EFFECT */
+.social-icon:hover {
+    transform: translateY(-10px) scale(1.2);
+    background: #3b82f6;
+    box-shadow: 0 15px 30px rgba(59,130,246,0.4);
+}
+
+/* show label on hover */
+.social-icon:hover span {
+    opacity: 1;
+    bottom: -35px;
+}
+
+/* Floating animation like Apple UI */
+@keyframes floatIcon {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Different hover colors */
+.social-icon.yt:hover { background: #ff0000; }
+.social-icon.gh:hover { background: #333; }
+.social-icon.li:hover { background: #0077b5; }
+.social-icon.tw:hover { background: #1da1f2; }
