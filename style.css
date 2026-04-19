@@ -64,6 +64,12 @@ body {
     color: #3b82f6;
 }
 
+.projects {
+    padding: 80px 0;
+    background: #0f172a;
+    color: white;
+}
+
 .hamburger {
     display: none;
     flex-direction: column;
