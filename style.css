@@ -452,3 +452,24 @@ section {
     50% { transform: translateY(-20px); }
     100% { transform: translateY(0px); }
 }
+.social-links {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.social-links a {
+    color: white;
+    font-size: 22px;
+    background: rgba(255,255,255,0.1);
+    padding: 12px;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.social-links a:hover {
+    transform: translateY(-5px) scale(1.1);
+    background: #3b82f6;
+    color: white;
+}
