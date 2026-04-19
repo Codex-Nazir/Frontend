@@ -26,7 +26,6 @@ body {
     backdrop-filter: blur(10px);
     z-index: 1000;
     padding: 1rem 0;
-    transition: all 0.3s ease;
 }
 
 .nav-container {
@@ -57,73 +56,13 @@ body {
     color: white;
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.3s ease;
 }
 
 .nav-menu a:hover {
     color: #3b82f6;
 }
 
-/* Profile Card */
-.profile-card {
-    position: relative;
-    width: 300px;
-    overflow: hidden;
-    border-radius: 15px;
-}
-
-/* YouTube Icon (always visible) */
-.youtube-badge {
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-    background: red;
-    color: white;
-    padding: 10px;
-    border-radius: 50%;
-    font-size: 20px;
-    transition: 0.3s;
-    z-index: 2;
-}
-
-/* Hidden overlay initially */
-.youtube-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0,0,0,0.8);
-    padding: 20px;
-    text-align: center;
-    transform: translateY(100%);
-    transition: 0.3s ease;
-}
-
-/* Button */
-.yt-btn {
-    background: red;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-/* Hover effect */
-.profile-card:hover .youtube-overlay {
-    transform: translateY(0);
-}
-
-.profile-card:hover .youtube-badge {
-    transform: scale(1.3);
-    border-radius: 10px;
-}
-.projects {
-    padding: 80px 0;
-    background: #0f172a;
-    color: white;
-}
-
+/* Hamburger */
 .hamburger {
     display: none;
     flex-direction: column;
@@ -135,30 +74,17 @@ body {
     height: 3px;
     background: white;
     margin: 3px 0;
-    transition: 0.3s;
 }
 
-/* Hero Section */
+/* HERO */
 .hero {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    background: linear-gradient(135deg, #0f172a, #1e293b);
     color: white;
     padding: 100px 20px 50px;
     position: relative;
-    overflow: hidden;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(59,130,246,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
-    opacity: 0.5;
 }
 
 .hero-content {
@@ -168,111 +94,52 @@ body {
 }
 
 .hero-title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-size: 3rem;
     font-weight: 700;
-    margin-bottom: 1.5rem;
-    line-height: 1.2;
 }
 
 .gradient-text {
-    background: linear-gradient(135deg, #3b82f6, #8b5cf6, #06b6d4);
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.hero-desc {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
 }
 
 .hero-buttons {
     display: flex;
     gap: 1rem;
-    flex-wrap: wrap;
+    margin-top: 20px;
 }
 
+/* BUTTONS */
 .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
     padding: 1rem 2rem;
     border-radius: 50px;
     text-decoration: none;
     font-weight: 600;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    background: #3b82f6;
     color: white;
-    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
-}
-
-.btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(59, 130, 246, 0.6);
 }
 
 .btn-secondary {
-    background: transparent;
-    color: white;
     border: 2px solid #3b82f6;
+    color: white;
 }
 
-.btn-secondary:hover {
-    background: #3b82f6;
-    transform: translateY(-3px);
-}
-
-.hero-image {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-
-.floating-card {
-    width: 300px;
-    height: 300px;
-    background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1));
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 4rem;
-    color: #3b82f6;
-    animation: float 6s ease-in-out infinite;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.2);
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-}
-
-/* Section Styles */
+/* SECTIONS */
 section {
     padding: 100px 0;
 }
 
 .section-title {
-    font-size: 2.5rem;
     text-align: center;
+    font-size: 2.5rem;
     margin-bottom: 3rem;
-    background: linear-gradient(135deg, #1e293b, #334155);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
 }
 
-/* About Section */
+/* ABOUT */
 .about {
     background: #f8fafc;
 }
@@ -281,84 +148,139 @@ section {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
-    align-items: center;
 }
 
-.about-text h3 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    color: #1e293b;
-}
-
-.about-text p {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-    color: #64748b;
-    line-height: 1.8;
-}
-
+/* SKILLS */
 .skill-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: 10px;
 }
 
 .skill-tags span {
-    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    background: #3b82f6;
     color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 25px;
-    font-size: 0.9rem;
-    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 20px;
 }
+
+/* =========================
+   🔥 PROFILE + YOUTUBE FIX
+========================= */
 
 .profile-card {
     position: relative;
+    width: 350px;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
 }
 
 .profile-card img {
     width: 100%;
-    height: 400px;
+    height: 420px;
     object-fit: cover;
-    transition: transform 0.3s ease;
 }
 
-.profile-overlay {
+/* YouTube badge ALWAYS visible */
+.youtube-badge {
     position: absolute;
-    top: 0;
+    bottom: 20px;
+    right: 20px;
+    background: red;
+    color: white;
+    padding: 14px;
+    border-radius: 50%;
+    font-size: 22px;
+    z-index: 3;
+    box-shadow: 0 10px 25px rgba(255,0,0,0.4);
+}
+
+/* YouTube overlay ALWAYS visible (not hover-based) */
+.youtube-overlay {
+    position: absolute;
+    bottom: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(59,130,246,0.9), rgba(139,92,246,0.9));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    background: rgba(0,0,0,0.75);
+    padding: 25px;
+    text-align: center;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
-.profile-card:hover .profile-overlay {
-    opacity: 1;
-}
-
-.profile-link {
-    font-size: 2rem;
+.yt-btn {
+    background: red;
     color: white;
-    width: 60px;
-    height: 60px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
+    padding: 12px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
 }
 
-.profile-link:hover {
+/* VIDEOS */
+.videos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.video-card {
     background: white;
-    transform
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* PROJECTS */
+.projects {
+    background: #0f172a;
+    color: white;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* CONTACT */
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+}
+
+/* FOOTER */
+.footer {
+    background: #0f172a;
+    color: white;
+    text-align: center;
+    padding: 30px 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-content {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+
+    .profile-card {
+        width: 100%;
+    }
 }
