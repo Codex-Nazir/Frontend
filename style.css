@@ -284,3 +284,39 @@ section {
         width: 100%;
     }
 }
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* 🔥 THIS is your big floating code/image card */
+.floating-card {
+    width: 320px;              /* make it BIG again */
+    height: 320px;
+    background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(139,92,246,0.15));
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 5rem;          /* bigger icon */
+    color: #3b82f6;
+
+    animation: float 6s ease-in-out infinite;
+
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.15);
+
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+/* 🔥 FLOAT ANIMATION (if it got removed or overwritten) */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-25px); }
+    100% { transform: translateY(0px); }
+}
