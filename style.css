@@ -576,17 +576,7 @@ section {
     z-index: 2;
 }
 
-/* YouTube badge */
-.youtube-badge {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    background: red;
-    color: white;
-    padding: 12px;
-    border-radius: 50%;
-    z-index: 3;
-}
+
 
 /* overlay */
 .youtube-overlay {
