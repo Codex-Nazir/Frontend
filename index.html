@@ -90,56 +90,69 @@
         </div>
     </section>
 
-    <!-- Videos Section -->
-    <section id="videos" class="videos">
-        <div class="container">
-            <h2 class="section-title">Latest Videos</h2>
-            <div class="videos-grid">
-                <div class="video-card">
-                    <div class="video-thumbnail">
-                        <img src="https://via.placeholder.com/400x225/0f172a/ffffff?text=SQL+Injection+Attack" alt="SQL Injection">
-                        <div class="video-duration">12:45</div>
+   <!-- Videos Section - REAL YOUTUBE THUMBNAILS -->
+<section id="videos" class="videos">
+    <div class="container">
+        <h2 class="section-title">Latest Videos</h2>
+        <div class="videos-grid">
+            <!-- Video 1 -->
+            <div class="video-card" onclick="openVideo('https://www.youtube.com/watch?v=dQw4w9WgXcQ')">
+                <div class="video-thumbnail">
+                    <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Latest Video" loading="lazy">
+                    <div class="video-play-btn">
+                        <i class="fas fa-play"></i>
                     </div>
-                    <h3>SQL Injection Attack Explained</h3>
-                    <p>Complete SQL Injection tutorial with practical demo</p>
-                    <div class="video-stats">
-                        <span><i class="fas fa-eye"></i> 5.2K</span>
-                        <span><i class="fas fa-thumbs-up"></i> 892</span>
-                    </div>
+                    <div class="video-duration">12:45</div>
                 </div>
-                <div class="video-card">
-                    <div class="video-thumbnail">
-                        <img src="https://via.placeholder.com/400x225/0f172a/ffffff?text=XSS+Attack" alt="XSS Attack">
-                        <div class="video-duration">8:30</div>
-                    </div>
-                    <h3>XSS Attack Prevention Techniques</h3>
-                    <p>Learn how to prevent Cross-Site Scripting attacks</p>
-                    <div class="video-stats">
-                        <span><i class="fas fa-eye"></i> 3.8K</span>
-                        <span><i class="fas fa-thumbs-up"></i> 567</span>
-                    </div>
-                </div>
-                <div class="video-card">
-                    <div class="video-thumbnail">
-                        <img src="https://via.placeholder.com/400x225/0f172a/ffffff?text=WiFi+Hacking" alt="WiFi Hacking">
-                        <div class="video-duration">15:20</div>
-                    </div>
-                    <h3>WiFi Hacking & Security</h3>
-                    <p>Complete WiFi security tutorial for beginners</p>
-                    <div class="video-stats">
-                        <span><i class="fas fa-eye"></i> 7.1K</span>
-                        <span><i class="fas fa-thumbs-up"></i> 1.2K</span>
-                    </div>
+                <h3>SQL Injection Attack Full Tutorial</h3>
+                <p>Complete practical demo with prevention techniques</p>
+                <div class="video-stats">
+                    <span><i class="fas fa-eye"></i> 5.2K views</span>
+                    <span><i class="fas fa-thumbs-up"></i> 892</span>
                 </div>
             </div>
-            <div class="videos-cta">
-                <a href="https://youtube.com/@NHtechno" class="btn btn-primary" target="_blank">
-                    <i class="fab fa-youtube"></i> Watch All Videos
-                </a>
+
+            <!-- Video 2 -->
+            <div class="video-card" onclick="openVideo('https://www.youtube.com/watch?v=VIDEO_ID_2')">
+                <div class="video-thumbnail">
+                    <img src="https://img.youtube.com/vi/VIDEO_ID_2/maxresdefault.jpg" alt="Video 2" loading="lazy">
+                    <div class="video-play-btn">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-duration">8:30</div>
+                </div>
+                <h3>XSS Attack Prevention Guide</h3>
+                <p>Advanced Cross-Site Scripting protection methods</p>
+                <div class="video-stats">
+                    <span><i class="fas fa-eye"></i> 3.8K views</span>
+                    <span><i class="fas fa-thumbs-up"></i> 567</span>
+                </div>
+            </div>
+
+            <!-- Video 3 -->
+            <div class="video-card" onclick="openVideo('https://www.youtube.com/watch?v=VIDEO_ID_3')">
+                <div class="video-thumbnail">
+                    <img src="https://img.youtube.com/vi/VIDEO_ID_3/maxresdefault.jpg" alt="Video 3" loading="lazy">
+                    <div class="video-play-btn">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-duration">15:20</div>
+                </div>
+                <h3>WiFi Hacking Complete Course</h3>
+                <p>From beginner to advanced WiFi security</p>
+                <div class="video-stats">
+                    <span><i class="fas fa-eye"></i> 7.1K views</span>
+                    <span><i class="fas fa-thumbs-up"></i> 1.2K</span>
+                </div>
             </div>
         </div>
-    </section>
-
+        <div class="videos-cta">
+            <a href="https://youtube.com/@NHtechno" class="btn btn-primary" target="_blank">
+                <i class="fab fa-youtube"></i> Subscribe NH TECHNO (10K+ Subs)
+            </a>
+        </div>
+    </div>
+</section>
     <!-- Services Section -->
     <section id="services" class="services">
         <div class="container">
