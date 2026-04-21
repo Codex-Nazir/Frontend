@@ -756,7 +756,8 @@ html, body {
 /* 🔥 FLOATING CARD BASE */
 .floating-card {
     width: 320px;
-    height: 320px;
+    min-height: 320px;
+    padding: 20px;
     border-radius: 25px;
 
     display: flex;
@@ -786,19 +787,27 @@ html, body {
 /* HIDDEN CONTENT */
 .card-content {
     position: absolute;
-    text-align: center;
+    width: 100%;
     padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     opacity: 0;
     transform: translateY(20px);
     transition: 0.4s;
+
     color: #1e293b;
+    text-align: center;
 }
 
 /* 🔥 HOVER EFFECT */
 .floating-card:hover {
     background: white;
-    transform: scale(1.1);
+    box-shadow: 0 30px 80px rgba(59,130,246,0.4);
+    transform: scale(1.08);
 }
 
 /* Hide icon on hover */
@@ -815,12 +824,13 @@ html, body {
 
 /* TEXT STYLE */
 .card-content h4 {
+    font-size: 18px;
     margin-bottom: 10px;
 }
 
 .card-content p {
-    font-size: 14px;
-    margin: 5px 0;
+    font-size: 13px;
+    margin: 4px 0;
 }
 
 /* 📱 MOBILE FIX */
