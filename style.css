@@ -752,3 +752,58 @@ html, body {
     padding: 0;
     overflow-x: hidden;
 }
+
+/* 🔥 FLOATING POPUP */
+.floating-card {
+    position: relative;
+    cursor: pointer;
+}
+
+/* hidden popup */
+.floating-popup {
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%) scale(0.8);
+
+    background: rgba(15, 23, 42, 0.95);
+    color: white;
+    padding: 15px;
+    width: 220px;
+
+    border-radius: 15px;
+    text-align: left;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition: 0.3s ease;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+/* popup arrow */
+.floating-popup::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    border-width: 8px;
+    border-style: solid;
+    border-color: rgba(15,23,42,0.95) transparent transparent transparent;
+}
+
+/* SHOW ON HOVER */
+.floating-card:hover .floating-popup {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
+/* 📱 MOBILE SUPPORT */
+@media (max-width: 768px) {
+    .floating-popup {
+        width: 180px;
+        font-size: 12px;
+    }
+}
