@@ -150,9 +150,9 @@ section {
 
 /* ABOUT */
 .about {
-    background: #f8fafc;
+    background: #0f172a;
+    color: white;
 }
-
 .about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -356,10 +356,9 @@ section {
     display: inline-block;
 }
 .about {
-    background: #f8fafc;
-    padding: 100px 0;
+    background: #0f172a;
+    color: white;
 }
-
 /* 🔥 Proper 2-column layout restored */
 .about-grid {
     display: grid;
