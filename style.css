@@ -43,7 +43,7 @@ html, body {
     align-items: center;
 }
 
-.nav-logo {
+.nav-logo {  
     display: flex;
     align-items: center;
     gap: 10px;
