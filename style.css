@@ -150,9 +150,9 @@ section {
 
 /* ABOUT */
 .about {
-    background: #0f172a;
-    color: white;
+    background: #f8fafc;
 }
+
 .about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -747,6 +747,8 @@ body {
     max-width: 100%;
 }
 
-section {
+html, body {
     margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
