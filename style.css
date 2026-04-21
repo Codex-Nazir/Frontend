@@ -252,6 +252,17 @@ section {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
 }
+.service-icon {
+    font-size: 35px;
+    color: #3b82f6;
+    margin-bottom: 10px;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    transition: 0.3s;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
 
 /* CONTACT */
 .contact-content {
