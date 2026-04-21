@@ -356,8 +356,8 @@ section {
     display: inline-block;
 }
 .about {
-    background: #0f172a;
-    color: white;
+    background: #f8fafc;
+    color: #1e293b;
 }
 /* 🔥 Proper 2-column layout restored */
 .about-grid {
@@ -376,7 +376,7 @@ section {
 
 .about-text p {
     font-size: 1.1rem;
-    color: #64748b;
+    color: #475569;
     line-height: 1.8;
     margin-bottom: 25px;
 }
