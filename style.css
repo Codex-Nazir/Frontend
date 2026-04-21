@@ -753,57 +753,80 @@ html, body {
     overflow-x: hidden;
 }
 
-/* 🔥 FLOATING POPUP */
+/* 🔥 FLOATING CARD BASE */
 .floating-card {
+    width: 320px;
+    height: 320px;
+    border-radius: 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(139,92,246,0.15));
+    backdrop-filter: blur(12px);
+
     position: relative;
+    overflow: hidden;
+
+    transition: all 0.4s ease;
     cursor: pointer;
+
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
 }
 
-/* hidden popup */
-.floating-popup {
+/* ICON */
+.floating-card .icon {
+    font-size: 5rem;
+    color: #3b82f6;
+    transition: 0.4s;
+}
+
+/* HIDDEN CONTENT */
+.card-content {
     position: absolute;
-    bottom: 120%;
-    left: 50%;
-    transform: translateX(-50%) scale(0.8);
-
-    background: rgba(15, 23, 42, 0.95);
-    color: white;
-    padding: 15px;
-    width: 220px;
-
-    border-radius: 15px;
-    text-align: left;
+    text-align: center;
+    padding: 20px;
 
     opacity: 0;
-    pointer-events: none;
-
-    transition: 0.3s ease;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    transform: translateY(20px);
+    transition: 0.4s;
+    color: #1e293b;
 }
 
-/* popup arrow */
-.floating-popup::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-
-    border-width: 8px;
-    border-style: solid;
-    border-color: rgba(15,23,42,0.95) transparent transparent transparent;
+/* 🔥 HOVER EFFECT */
+.floating-card:hover {
+    background: white;
+    transform: scale(1.1);
 }
 
-/* SHOW ON HOVER */
-.floating-card:hover .floating-popup {
+/* Hide icon on hover */
+.floating-card:hover .icon {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+/* Show content */
+.floating-card:hover .card-content {
     opacity: 1;
-    transform: translateX(-50%) scale(1);
+    transform: translateY(0);
 }
 
-/* 📱 MOBILE SUPPORT */
+/* TEXT STYLE */
+.card-content h4 {
+    margin-bottom: 10px;
+}
+
+.card-content p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+/* 📱 MOBILE FIX */
 @media (max-width: 768px) {
-    .floating-popup {
-        width: 180px;
-        font-size: 12px;
+    .floating-card {
+        width: 260px;
+        height: 260px;
     }
 }
