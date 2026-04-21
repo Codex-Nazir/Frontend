@@ -636,3 +636,102 @@ body {
   padding: 10px;
 }
 
+/* =========================
+   🚀 MOBILE FIX (FINAL)
+========================= */
+
+@media (max-width: 768px) {
+
+  /* NAVBAR FIX */
+  .nav-menu {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background: #0f172a;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    display: none;
+    padding: 20px 0;
+  }
+
+  .nav-menu.active {
+    display: flex;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  /* HERO FIX */
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 120px 20px 60px;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+  }
+
+  /* FLOATING CARD FIX */
+  .floating-card {
+    width: 220px;
+    height: 220px;
+    font-size: 3rem;
+    margin-top: 30px;
+  }
+
+  /* ABOUT FIX */
+  .about-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 30px;
+  }
+
+  /* PROFILE CARD FIX */
+  .profile-card {
+    width: 100%;
+    max-width: 280px;
+    height: 360px;
+    margin: auto;
+  }
+
+  /* VIDEOS GRID */
+  .videos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* PROJECTS GRID */
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* CONTACT FIX */
+  .contact-content {
+    grid-template-columns: 1fr;
+  }
+
+  /* TEXT FIX */
+  h1 {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}
+
