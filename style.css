@@ -851,3 +851,32 @@ html, body {
         height: 260px;
     }
 }
+
+.skills-detail {
+    margin-top: 30px;
+    display: grid;
+    gap: 20px;
+}
+
+.skill-box {
+    background: #f5f7fa;
+    padding: 20px;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.skill-box h4 {
+    margin-bottom: 8px;
+    color: #1e3a8a;
+}
+
+.skill-box p {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.6;
+}
+
+.skill-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
