@@ -973,14 +973,23 @@ html, body {
 .auth-box button {
     width: 100%;
     padding: 10px;
-    background: #0041c2;
+    background: #2563eb; /* same blue as Start Learning */
     border: none;
     cursor: pointer;
+    color: white;   /* ✅ FIX: text white */
+    font-weight: 600;
+}
+.auth-box span {
+    color: #2563eb; /* ✅ blue like modern websites */
+    cursor: pointer;
+    font-weight: 500;
+}
+.auth-box button:hover {
+    background: #1d4ed8; /* darker blue */
 }
 
-.auth-box span {
-    color: #00ffcc;
-    cursor: pointer;
+.auth-box span:hover {
+    text-decoration: underline;
 }
 
 /* Mobile fix */
