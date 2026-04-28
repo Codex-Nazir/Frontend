@@ -203,21 +203,35 @@ Visit Channel
 
 <!-- LEARN SKILLS SECTION -->
 <section id="learn" class="learn">
-<div class="container">
+<div class="container learn-flex">
 
-<h2 class="section-title">Learn Skills for Free 🚀</h2>
+    <!-- LEFT SIDE -->
+    <div class="learn-left">
+        <h2 class="section-title">Learn Skills for Free 🚀</h2>
+        <p>
+        Start learning cybersecurity, coding, and digital skills completely free.
+        Build real-world knowledge and grow your career step-by-step.
+        </p>
 
-<p class="learn-desc">
-Want to build real-world skills? Explore free resources to learn cybersecurity, coding, and digital skills like Python, web development, and more.
-</p>
+        <button onclick="openAuth()" class="btn btn-primary">
+            Start Learning →
+        </button>
+    </div>
 
-<a href="learn.html" class="btn btn-primary">
-Start Learning →
-</a>
+    <!-- RIGHT SIDE (LOGIN BOX) -->
+    <div class="auth-box">
+        <h3>Login</h3>
+
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Password">
+
+        <button onclick="loginUser()">Login</button>
+
+        <p>New user? <span onclick="showSignup()">Create Account</span></p>
+    </div>
 
 </div>
 </section>
-
 <!-- PROJECTS PREVIEW -->
 <section id="projects" class="projects">
   <div class="container">
@@ -301,6 +315,23 @@ const navMenu = document.querySelector(".nav-menu");
 hamburger.addEventListener("click", () => {
   navMenu.classList.toggle("active");
 });
+
+<script>
+function openAuth() {
+    document.querySelector(".auth-box").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+function loginUser() {
+    alert("Login successful (demo)");
+    window.location.href = "learn.html";
+}
+
+function showSignup() {
+    alert("Signup feature coming soon!");
+}
+</script>
 </script>
 
 </body>

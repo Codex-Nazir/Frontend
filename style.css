@@ -944,3 +944,48 @@ html, body {
         grid-template-columns: 1fr;
     }
 }
+
+.learn-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.learn-left {
+    flex: 1;
+}
+
+.auth-box {
+    flex: 1;
+    background: #111;
+    padding: 25px;
+    border-radius: 12px;
+    color: white;
+}
+
+.auth-box input {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.auth-box button {
+    width: 100%;
+    padding: 10px;
+    background: #00ffcc;
+    border: none;
+    cursor: pointer;
+}
+
+.auth-box span {
+    color: #00ffcc;
+    cursor: pointer;
+}
+
+/* Mobile fix */
+@media (max-width: 768px) {
+    .learn-flex {
+        flex-direction: column;
+    }
+}
