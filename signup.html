@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account - NH TECHNO</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="auth-box" style="max-width:400px; margin:100px auto;">
+    <h2>Create Account</h2>
+
+    <input id="signup-name" placeholder="Username">
+    <input id="signup-email" type="email" placeholder="Email">
+    <input id="signup-password" type="password" placeholder="Password">
+    <input id="signup-confirm" type="password" placeholder="Confirm Password">
+
+    <button onclick="signupUser()">Create Account</button>
+
+    <p>Already have account? 
+      <span onclick="window.location.href='index.html'">Login</span>
+    </p>
+</div>
+
+<!-- Firebase -->
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { 
+  getAuth, 
+  createUserWithEmailAndPassword,
+  sendEmailVerification
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBp3NKuTk8i6B5dISNgK4cb79-6M3MrIWk",
+  authDomain: "nh-techno.firebaseapp.com",
+  projectId: "nh-techno",
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.signupUser = function() {
+  const email = document.getElementById("signup-email").value;
+  const password = document.getElementById("signup-password").value;
+  const confirm = document.getElementById("signup-confirm").value;
+
+  if (password !== confirm) {
+    alert("Passwords do not match ❌");
+    return;
+  }
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      sendEmailVerification(userCredential.user);
+      alert("Verification email sent 📩 Check your inbox");
+
+      window.location.href = "index.html";
+    })
+    .catch((error) => alert(error.message));
+};
+
+</script>
+
+</body>
+</html>
