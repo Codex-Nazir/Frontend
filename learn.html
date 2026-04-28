@@ -98,5 +98,17 @@ This page contains curated resources to help you learn valuable skills like cybe
 </div>
 </section>
 
+<script type="module">
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const auth = getAuth();
+
+onAuthStateChanged(auth, (user) => {
+  if (!user || !user.emailVerified) {
+    window.location.href = "index.html";
+  }
+});
+</script>
+
 </body>
 </html>

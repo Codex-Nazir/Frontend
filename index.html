@@ -316,23 +316,79 @@ hamburger.addEventListener("click", () => {
   navMenu.classList.toggle("active");
 });
 
-<script>
-function openAuth() {
-    document.querySelector(".auth-box").scrollIntoView({
-        behavior: "smooth"
-    });
-}
+<script type="module">
 
-function loginUser() {
-    alert("Login successful (demo)");
-    window.location.href = "learn.html";
-}
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { 
+  getAuth, 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword,
+  sendEmailVerification 
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-function showSignup() {
-    alert("Signup feature coming soon!");
-}
+const firebaseConfig = {
+  apiKey: "AIza...",
+  authDomain: "nh-techno.firebaseapp.com",
+  projectId: "nh-techno",
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// SIGNUP
+window.signupUser = function() {
+  const email = document.getElementById("signup-email").value;
+  const password = document.getElementById("signup-password").value;
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      sendEmailVerification(userCredential.user);
+      alert("Verification email sent 📩");
+    })
+    .catch((error) => alert(error.message));
+};
+
+// LOGIN
+window.loginUser = function() {
+  const email = document.querySelector(".auth-box input[type='email']").value;
+  const password = document.querySelector(".auth-box input[type='password']").value;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      if (userCredential.user.emailVerified) {
+        window.location.href = "learn.html";
+      } else {
+        alert("Please verify your email first ⚠️");
+      }
+    })
+    .catch((error) => alert(error.message));
+};
+
 </script>
 </script>
 
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBp3NKuTk8i6B5dISNgK4cb79-6M3MrIWk",
+    authDomain: "nh-techno.firebaseapp.com",
+    projectId: "nh-techno",
+    storageBucket: "nh-techno.firebasestorage.app",
+    messagingSenderId: "1049506188120",
+    appId: "1:1049506188120:web:020bb88408bf3dfd23732d",
+    measurementId: "G-GZ1PS8J4YL"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
 </body>
 </html>
