@@ -99,15 +99,31 @@ This page contains curated resources to help you learn valuable skills like cybe
 </section>
 
 <script type="module">
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-const auth = getAuth();
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { 
+  getAuth, 
+  onAuthStateChanged 
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
+// SAME CONFIG (copy from index.html)
+const firebaseConfig = {
+  apiKey: "AIzaSyBp3NKuTk8i6B5dISNgK4cb79-6M3MrIWk",
+  authDomain: "nh-techno.firebaseapp.com",
+  projectId: "nh-techno",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Protect page
 onAuthStateChanged(auth, (user) => {
   if (!user || !user.emailVerified) {
     window.location.href = "index.html";
   }
 });
+
 </script>
 
 </body>
