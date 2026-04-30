@@ -1,29 +1,197 @@
-<section class="learn-page" style="padding-top: 120px;">
-<div class="container">
-    <h1 class="section-title" style="text-align: left;">Learning <span class="gradient-text">Dashboard</span></h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academy Dashboard | NH TECHNO</title>
     
-    <div class="learn-grid">
-        <!-- Example Card -->
-        <div class="learn-card">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                <i class="fab fa-python fa-2x" style="color: #ffd43b;"></i>
-                <span style="background:rgba(0,242,255,0.1); color:var(--accent); font-size:10px; padding:3px 8px; border-radius:10px;">BEGINNER</span>
-            </div>
-            <h3 style="margin: 1rem 0 0.5rem;">Python for Pentesters</h3>
-            <p style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 1.5rem;">Master Python scripting to automate your hacking workflow.</p>
-            <a href="#" class="btn-primary btn" style="font-size: 0.8rem; padding: 0.5rem 1rem;">Start Course</a>
-        </div>
+    <!-- CSS & Fonts -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-        <!-- Repeat for other cards -->
-        <div class="learn-card">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                <i class="fas fa-shield-halved fa-2x" style="color: var(--primary);"></i>
-                <span style="background:rgba(0,242,255,0.1); color:var(--accent); font-size:10px; padding:3px 8px; border-radius:10px;">INTERMEDIATE</span>
-            </div>
-            <h3 style="margin: 1rem 0 0.5rem;">Web Security (OWASP)</h3>
-            <p style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 1.5rem;">Deep dive into SQLi, XSS, and broken access controls.</p>
-            <a href="#" class="btn-primary btn" style="font-size: 0.8rem; padding: 0.5rem 1rem;">Start Course</a>
+    <style>
+        /* Dashboard Specific Styles */
+        .dashboard-header {
+            padding: 120px 0 40px;
+            text-align: center;
+        }
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        .course-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .difficulty {
+            font-size: 10px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .beginner { background: rgba(34, 197, 94, 0.2); color: #4ade80; }
+        .intermediate { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+        .advanced { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+        
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            border: 1px solid var(--border);
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav class="navbar">
+    <div class="container nav-container">
+        <div class="nav-logo">
+            <i class="fas fa-user-graduate"></i> NH ACADEMY
         </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">Main Site</a></li>
+            <li><a href="#" onclick="logoutUser()" class="logout-btn">Logout</a></li>
+        </ul>
     </div>
-</div>
+</nav>
+
+<section class="dashboard-header">
+    <div class="container">
+        <h1 class="hero-title">Academy <span class="gradient-text">Dashboard</span></h1>
+        <p style="color: var(--text-dim);">Welcome back, Defender. Choose a path to start your training.</p>
+    </div>
 </section>
+
+<section class="courses">
+    <div class="container">
+        <div class="course-grid">
+            
+            <!-- 1. Python Programming -->
+            <div class="glass-card course-card">
+                <div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <i class="fab fa-python fa-2x" style="color:#3776ab;"></i>
+                        <span class="difficulty beginner">Beginner</span>
+                    </div>
+                    <h3 style="margin-top:15px;">Python Programming</h3>
+                    <p style="font-size:0.85rem; color:var(--text-dim); margin:10px 0;">Basics to advanced scripting for automation and cybersecurity.</p>
+                </div>
+                <a href="https://youtube.com/playlist?list=YOUR_PLAYLIST" target="_blank" class="btn btn-primary" style="text-align:center; margin-top:20px;">Watch Path</a>
+            </div>
+
+            <!-- 2. Cybersecurity Basics -->
+            <div class="glass-card course-card">
+                <div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <i class="fas fa-shield-alt fa-2x" style="color:var(--accent);"></i>
+                        <span class="difficulty beginner">Beginner</span>
+                    </div>
+                    <h3 style="margin-top:15px;">Cybersecurity Basics</h3>
+                    <p style="font-size:0.85rem; color:var(--text-dim); margin:10px 0;">Core security concepts, CIA triad, and threat landscapes.</p>
+                </div>
+                <a href="#" class="btn btn-primary" style="text-align:center; margin-top:20px;">Watch Path</a>
+            </div>
+
+            <!-- 3. Web Development -->
+            <div class="glass-card course-card">
+                <div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <i class="fas fa-code fa-2x" style="color:#e34c26;"></i>
+                        <span class="difficulty beginner">Beginner</span>
+                    </div>
+                    <h3 style="margin-top:15px;">Web Development</h3>
+                    <p style="font-size:0.85rem; color:var(--text-dim); margin:10px 0;">Build secure frontends with HTML, CSS, and JavaScript.</p>
+                </div>
+                <a href="#" class="btn btn-primary" style="text-align:center; margin-top:20px;">Watch Path</a>
+            </div>
+
+            <!-- 4. Ethical Hacking -->
+            <div class="glass-card course-card">
+                <div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <i class="fas fa-user-secret fa-2x" style="color:var(--primary);"></i>
+                        <span class="difficulty intermediate">Intermediate</span>
+                    </div>
+                    <h3 style="margin-top:15px;">Ethical Hacking</h3>
+                    <p style="font-size:0.85rem; color:var(--text-dim); margin:10px 0;">The full kill chain: Recon, Scanning, Exploitation, Post-Exploitation.</p>
+                </div>
+                <a href="#" class="btn btn-primary" style="text-align:center; margin-top:20px;">Watch Path</a>
+            </div>
+
+            <!-- 5. Linux Basics -->
+            <div class="glass-card course-card">
+                <div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <i class="fab fa-linux fa-2x" style="color:white;"></i>
+                        <span class="difficulty beginner">Beginner</span>
+                    </div>
+                    <h3 style="margin-top:15px;">Linux Basics</h3>
+                    <p style="font-size:0.85rem; color:var(--text-dim); margin:10px 0;">Command line, file systems, and navigation essentials.</p>
+                </div>
+                <a href="#" class="btn btn-primary" style="text-align:center; margin-top:20px;">Watch Path</a>
+            </div>
+
+            <!-- 6. Linux Intermediate -->
+            <div class="glass-card course-card">
+                <div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <i class="fas fa-terminal fa-2x" style="color:var(--accent);"></i>
+                        <span class="difficulty intermediate">Intermediate</span>
+                    </div>
+                    <h3 style="margin-top:15px;">Linux Intermediate</h3>
+                    <p style="font-size:0.85rem; color:var(--text-dim); margin:10px 0;">Permissions, networking, and bash shell scripting.</p>
+                </div>
+                <a href="#" class="btn btn-primary" style="text-align:center; margin-top:20px;">Watch Path</a>
+            </div>
+
+            <!-- 7. Linux Advanced -->
+            <div class="glass-card course-card">
+                <div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <i class="fas fa-server fa-2x" style="color:var(--secondary);"></i>
+                        <span class="difficulty advanced">Advanced</span>
+                    </div>
+                    <h3 style="margin-top:15px;">Linux Advanced</h3>
+                    <p style="font-size:0.85rem; color:var(--text-dim); margin:10px 0;">Hardening, Kernel basics, and system security.</p>
+                </div>
+                <a href="#" class="btn btn-primary" style="text-align:center; margin-top:20px;">Watch Path</a>
+            </div>
+
+            <!-- 8. Networking Fundamentals -->
+            <div class="glass-card course-card">
+                <div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <i class="fas fa-network-wired fa-2x" style="color:var(--primary);"></i>
+                        <span class="difficulty beginner">Beginner</span>
+                    </div>
+                    <h3 style="margin-top:15px;">Networking</h3>
+                    <p style="font-size:0.85rem; color:var(--text-dim); margin:10px 0;">TCP/IP, OSI Model, DNS, and IP Addressing.</p>
+                </div>
+                <a href="#" class="btn btn-primary" style="text-align:center; margin-top:20px;">Watch Path</a>
+            </div>
+
+            <!-- 9. Web Security -->
+            <div class="glass-card course-card">
+                <div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <i class="fas fa-bug fa-2x" style="color:var(--accent);"></i>
+                        <span class="difficulty intermediate">Intermediate</span>
+                    </div>
+                    <h3 style="margin-top:15px;">Web Security</h3>
+                    <p style="font-size:0.85rem; color:var(--text-dim); margin:10px 0;">OWASP Top 10, SQLi, XSS, and CSRF vulnerabilities.</p>
+                </div>
+                <a href="#" class="btn btn-primary" style="text-align:center; margin-top:20px;">Watch Path</a>
+            </div>
+
+            <!-- 10. Bug Bounty Hunting -->
