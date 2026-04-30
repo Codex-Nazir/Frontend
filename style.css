@@ -1,12 +1,11 @@
+/* --- Modern Variables & Reset --- */
 :root {
     --primary: #3b82f6;
-    --secondary: #8b5cf6;
     --accent: #00f2ff;
-    --dark-bg: #030712;
-    --card-bg: rgba(17, 24, 39, 0.7);
-    --text-main: #f8fafc;
+    --bg-dark: #020617;
+    --card-bg: rgba(15, 23, 42, 0.8);
+    --text-white: #f8fafc;
     --text-dim: #94a3b8;
-    --glass: rgba(255, 255, 255, 0.03);
     --border: rgba(255, 255, 255, 0.1);
 }
 
@@ -14,29 +13,18 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    scroll-behavior: smooth;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--dark-bg);
-    color: var(--text-main);
+    background-color: var(--bg-dark);
+    color: var(--text-white);
     line-height: 1.6;
     overflow-x: hidden;
 }
 
-/* --- Advanced Background Effect --- */
-body::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
-    z-index: -1;
-}
-
 .container {
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 0 20px;
 }
@@ -45,11 +33,11 @@ body::before {
 .navbar {
     position: fixed;
     top: 0; width: 100%;
-    background: rgba(3, 7, 18, 0.8);
-    backdrop-filter: blur(15px);
+    background: rgba(2, 6, 23, 0.9);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
     z-index: 1000;
-    padding: 1rem 0;
+    padding: 15px 0;
 }
 
 .nav-container {
@@ -59,178 +47,140 @@ body::before {
 }
 
 .nav-logo {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 800;
-    letter-spacing: 1px;
-    background: linear-gradient(to right, var(--primary), var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .nav-menu {
     display: flex;
-    gap: 2.5rem;
     list-style: none;
+    gap: 25px;
 }
 
 .nav-menu a {
     color: var(--text-dim);
     text-decoration: none;
     font-size: 0.9rem;
-    font-weight: 500;
     transition: 0.3s;
 }
 
-.nav-menu a:hover {
-    color: var(--accent);
-}
+.nav-menu a:hover { color: var(--accent); }
 
-/* --- Hero Section --- */
+/* --- Hero Section (The Fix for Shuffling) --- */
 .hero {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
     padding-top: 80px;
+    background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent);
+}
+
+.hero-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.hero-content { flex: 1; }
+.hero-image { 
+    flex: 1; 
+    display: flex; 
+    justify-content: center; 
 }
 
 .hero-title {
-    font-size: clamp(2.5rem, 8vw, 4.5rem);
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.2;
+    margin-bottom: 20px;
 }
 
 .gradient-text {
-    background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+    background: linear-gradient(to right, var(--primary), var(--accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.hero p {
-    color: var(--text-dim);
-    font-size: 1.2rem;
-    max-width: 600px;
-    margin: 0 auto 2rem;
-}
-
-/* --- Advanced Buttons --- */
+/* --- Buttons --- */
 .btn {
-    padding: 0.8rem 2rem;
+    padding: 12px 28px;
     border-radius: 8px;
-    font-weight: 600;
     text-decoration: none;
-    transition: 0.4s;
+    font-weight: 600;
     display: inline-block;
+    transition: 0.3s;
 }
 
 .btn-primary {
     background: var(--primary);
     color: white;
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
-}
-
-.btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
 }
 
 .btn-secondary {
     border: 1px solid var(--border);
     color: white;
-    margin-left: 1rem;
+    margin-left: 10px;
 }
 
-/* --- Glass Cards --- */
+.btn:hover { transform: translateY(-2px); }
+
+/* --- Advanced Cards (Glassmorphism) --- */
 .glass-card {
     background: var(--card-bg);
-    backdrop-filter: blur(10px);
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 2rem;
-    transition: 0.4s;
+    padding: 30px;
+    backdrop-filter: blur(5px);
 }
 
-.glass-card:hover {
-    border-color: var(--primary);
-    transform: translateY(-5px);
-}
+/* --- Sections --- */
+section { padding: 100px 0; }
 
-/* --- Grid Layouts --- */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
-}
-
-/* --- About Section --- */
-.about { padding: 100px 0; }
 .section-title {
-    font-size: 2.5rem;
     text-align: center;
-    margin-bottom: 3rem;
+    font-size: 2.2rem;
+    margin-bottom: 50px;
 }
 
-/* --- Learn & Auth Section --- */
-.learn-section {
-    background: linear-gradient(to bottom, transparent, #0f172a);
-    padding: 100px 0;
+/* About Grid */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 50px;
+    align-items: center;
 }
 
+/* Login Box Fix */
 .auth-box {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    padding: 2.5rem;
+    background: #0f172a;
+    padding: 40px;
     border-radius: 20px;
-    max-width: 450px;
+    border: 1px solid var(--primary);
+    max-width: 400px;
     width: 100%;
 }
 
 .auth-box input {
     width: 100%;
     padding: 12px;
+    margin-bottom: 15px;
     background: rgba(255,255,255,0.05);
     border: 1px solid var(--border);
     border-radius: 8px;
     color: white;
-    margin-bottom: 1rem;
 }
 
-/* --- Footer --- */
-.footer {
-    padding: 50px 0;
-    border-top: 1px solid var(--border);
-    text-align: center;
-}
-
-.social-links a {
-    font-size: 1.5rem;
-    color: var(--text-dim);
-    margin: 0 15px;
-    transition: 0.3s;
-}
-
-.social-links a:hover {
-    color: var(--accent);
-}
-
-/* --- Learn Grid specific --- */
-.learn-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-}
-
-.learn-card {
-    background: var(--glass);
-    border: 1px solid var(--border);
-    padding: 1.5rem;
-    border-radius: 12px;
-    transition: 0.3s;
-}
-
-.learn-card:hover {
-    background: rgba(59, 130, 246, 0.1);
-    border-color: var(--primary);
+/* Mobile Responsiveness */
+@media (max-width: 850px) {
+    .hero-flex, .about-grid {
+        flex-direction: column;
+        text-align: center;
+        grid-template-columns: 1fr;
+    }
+    .nav-menu { display: none; }
 }
