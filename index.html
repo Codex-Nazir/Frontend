@@ -1,27 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google Tag (gtag.js) - Google Ads -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18109833931"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-18109833931');
+    </script>
+
+    <!-- Event snippet for Page view conversion -->
+    <script>
+      gtag('event', 'conversion', {
+          'send_to': 'AW-18109833931/9yHXCI3WwaIcEMvFuLtD',
+          'value': 1.0,
+          'currency': 'INR'
+      });
+    </script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J23Q01TH8D"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-J23Q01TH8D');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NH TECHNO | Cybersecurity Expert</title>
-    
+    <title>NH TECHNO | Cybersecurity Professional</title>
+
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
+<!-- NAVIGATION -->
 <nav class="navbar">
     <div class="container nav-container">
         <div class="nav-logo">
-            <i class="fas fa-user-secret"></i> NH TECHNO
+            <i class="fas fa-terminal"></i> NH TECHNO
         </div>
         <ul class="nav-menu">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#learn">Academy</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
     </div>
 </nav>
@@ -30,81 +59,98 @@
 <section id="home" class="hero">
     <div class="container hero-flex">
         <div class="hero-content">
-            <h1 class="hero-title">Protecting the <br><span class="gradient-text">Cyber World</span></h1>
-            <p style="color: var(--text-dim); margin-bottom: 30px;">I am Nazir Hussain, a BTech Cybersecurity student. I provide advanced security tools and ethical hacking tutorials.</p>
-            <div class="hero-btns">
-                <a href="https://youtube.com/@NHtechno" class="btn btn-primary">Watch Videos</a>
-                <a href="#learn" class="btn btn-secondary">Join Academy</a>
+            <h1 class="hero-title">Secure Your <br><span class="gradient-text">Digital Assets</span></h1>
+            <p style="color: var(--text-dim); font-size: 1.1rem; margin-bottom: 2rem; max-width: 600px;">
+                Nazir Hussain: BTech Cybersecurity student & Ethical Hacker. Building advanced security tools and educating the next generation of cyber defenders.
+            </p>
+            <div class="hero-buttons">
+                <a href="https://youtube.com/@NHtechno" class="btn btn-primary"><i class="fab fa-youtube"></i> Watch Tutorials</a>
+                <a href="#learn" class="btn btn-secondary">Get Started</a>
             </div>
         </div>
         <div class="hero-image">
-            <!-- Fixed Floating Card (No more shuffling) -->
-            <div class="glass-card" style="max-width: 300px; text-align: center;">
-                <i class="fas fa-shield-virus fa-3x" style="color: var(--primary); margin-bottom: 15px;"></i>
-                <h4>Learning Path</h4>
-                <p style="font-size: 0.8rem; color: var(--text-dim);">Linux, Python, Pentesting, & Forensics</p>
+            <div class="glass-card" style="text-align: center; border-radius: 30px;">
+                <i class="fas fa-shield-halved fa-4x" style="color: var(--accent); margin-bottom: 20px;"></i>
+                <h3>Academy Open</h3>
+                <p style="color: var(--text-dim); font-size: 0.9rem;">Join 1,000+ students learning Ethical Hacking.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about">
+<!-- PROJECTS SECTION -->
+<section id="projects" style="padding: 100px 0;">
     <div class="container">
-        <div class="about-grid">
-            <div class="about-text">
-                <h2 style="margin-bottom: 20px;">About Me</h2>
-                <p>Focusing on real-world security challenges, I create content that helps beginners transition into professional cybersecurity roles.</p>
-                <div style="display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;">
-                    <span class="btn" style="background:rgba(59,130,246,0.1); font-size:12px; padding:5px 15px;">Python</span>
-                    <span class="btn" style="background:rgba(59,130,246,0.1); font-size:12px; padding:5px 15px;">Ethical Hacking</span>
-                    <span class="btn" style="background:rgba(59,130,246,0.1); font-size:12px; padding:5px 15px;">Linux</span>
-                </div>
+        <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 10px;">Security <span class="gradient-text">Repository</span></h2>
+        <p style="text-align: center; color: var(--text-dim);">Open-source tools built for reconnaissance and protection.</p>
+        
+        <div class="grid">
+            <div class="glass-card">
+                <i class="fas fa-search-location fa-2x" style="color: var(--accent);"></i>
+                <h3 style="margin: 15px 0;">SPPTI Scanner</h3>
+                <p style="color: var(--text-dim); font-size: 0.9rem; margin-bottom: 20px;">Smart Passive Threat Intelligence tool for domain vulnerability detection.</p>
+                <a href="https://sppti.onrender.com/" target="_blank" class="btn btn-primary" style="width: 100%; text-align: center;">Launch Tool 🚀</a>
             </div>
-            <div class="about-image">
-                <div class="glass-card" style="padding:10px; border-radius:20px;">
-                    <img src="https://yt3.googleusercontent.com/7GS-XD-yt4cfVAsr2MDYuMoZ5cDD32t_MNJBhJB4T2bZKs2t8oatnin2tYGd7hoZi-_d_p5-ZJY=s160-c-k-c0x00ffffff-no-rj" style="width:100%; border-radius:15px;" alt="Nazir">
-                </div>
+
+            <div class="glass-card">
+                <i class="fas fa-key fa-2x" style="color: var(--accent);"></i>
+                <h3 style="margin: 15px 0;">Password Entropy</h3>
+                <p style="color: var(--text-dim); font-size: 0.9rem; margin-bottom: 20px;">Advanced password strength analyzer using bit-entropy calculation.</p>
+                <a href="https://codex.pythonanywhere.com" target="_blank" class="btn btn-primary" style="width: 100%; text-align: center;">Launch Tool 🚀</a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- LEARN/LOGIN (Fixed Login Field) -->
-<section id="learn" style="background: #020617;">
+<!-- ACADEMY LOGIN -->
+<section id="learn" style="background: rgba(255,255,255,0.02); padding: 100px 0;">
     <div class="container">
-        <div style="display:flex; flex-wrap:wrap; gap:50px; justify-content:center; align-items:center;">
-            <div style="flex:1; min-width:300px;">
-                <h2 class="section-title" style="text-align:left;">NH TECHNO Academy</h2>
-                <p style="color:var(--text-dim);">Login to access private roadmaps and exclusive cybersecurity tools.</p>
-            </div>
-            
+        <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 10px;">Access the <span class="gradient-text">Academy</span></h2>
+        <div class="auth-wrapper">
             <div class="auth-box">
-                <h3 style="margin-bottom:20px; text-align:center;">Login</h3>
-                <input type="email" id="userEmail" placeholder="Email Address">
-                <input type="password" id="userPassword" placeholder="Password">
-                <button onclick="loginUser()" class="btn btn-primary" style="width:100%; border:none; cursor:pointer;">Sign In</button>
-                <p style="text-align:center; font-size:12px; margin-top:15px; color:var(--text-dim);">
-                    New user? <a href="signup.html" style="color:var(--accent);">Create an Account</a>
+                <input type="email" id="loginEmail" placeholder="Email Address">
+                <input type="password" id="loginPassword" placeholder="Password">
+                <button onclick="loginUser()" class="btn btn-primary" style="width: 100%;">Sign Into Dashboard</button>
+                <p style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--text-dim);">
+                    New user? <a href="signup.html" style="color: var(--accent); text-decoration: none; font-weight: 600;">Create Account</a>
                 </p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- FOOTER -->
-<footer style="padding: 50px 0; border-top: 1px solid var(--border); text-align:center;">
+<!-- CONTACT SECTION -->
+<section id="contact" style="padding: 100px 0;">
     <div class="container">
-        <div style="margin-bottom: 20px;">
-            <a href="#" style="color:var(--text-dim); margin: 0 10px; font-size: 1.2rem;"><i class="fab fa-github"></i></a>
-            <a href="#" style="color:var(--text-dim); margin: 0 10px; font-size: 1.2rem;"><i class="fab fa-youtube"></i></a>
-            <a href="#" style="color:var(--text-dim); margin: 0 10px; font-size: 1.2rem;"><i class="fab fa-linkedin"></i></a>
+        <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 50px;">Get In <span class="gradient-text">Touch</span></h2>
+        <div class="grid">
+            <div class="glass-card">
+                <h3>Contact Details</h3>
+                <p style="margin-top: 20px; color: var(--text-dim);"><i class="fas fa-envelope"></i> khnitaly00@gmail.com</p>
+                <p style="color: var(--text-dim);"><i class="fab fa-linkedin"></i> linkedin.com/in/nazir-hussain/</p>
+            </div>
+            <form class="glass-card" onsubmit="return false;">
+                <input type="text" placeholder="Your Name" style="width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: white; border-radius: 8px;">
+                <textarea placeholder="Message" rows="4" style="width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: white; border-radius: 8px;"></textarea>
+                <button class="btn btn-primary" style="width: 100%;">Send Message</button>
+            </form>
         </div>
-        <p style="font-size: 0.8rem; color: var(--text-dim);">&copy; 2026 NH TECHNO. Built for the Cybersecurity community.</p>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="padding: 50px 0; border-top: 1px solid var(--border); text-align: center;">
+    <div class="container">
+        <div style="margin-bottom: 20px; font-size: 1.5rem;">
+            <a href="https://github.com/Codex-Nazir" style="color: var(--text-dim); margin: 0 15px;"><i class="fab fa-github"></i></a>
+            <a href="https://youtube.com/@NHtechno" style="color: var(--text-dim); margin: 0 15px;"><i class="fab fa-youtube"></i></a>
+            <a href="https://instagram.com/khnnazir_" style="color: var(--text-dim); margin: 0 15px;"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p style="color: var(--text-dim); font-size: 0.8rem;">&copy; 2026 NH TECHNO | Built for Defenders.</p>
     </div>
 </footer>
 
-<!-- FIREBASE LOGIN SCRIPT (FIXED) -->
+<!-- FIREBASE AUTH MODULE -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -118,8 +164,29 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
+    // This makes the function global so the button can access it
     window.loginUser = function() {
-        const email = document.getElementById("userEmail").value;
-        const password = document.getElementById("userPassword").value;
+        const email = document.getElementById("loginEmail").value;
+        const password = document.getElementById("loginPassword").value;
 
-        if(!email || !
+        if(!email || !password) {
+            alert("Please fill in both fields.");
+            return;
+        }
+
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            if (userCredential.user.emailVerified) {
+                window.location.href = "learn.html";
+            } else {
+                alert("Account found, but email is not verified. Please check your inbox! 📩");
+            }
+        })
+        .catch((error) => {
+            alert("Login Failed: " + error.message);
+        });
+    };
+</script>
+
+</body>
+</html>
