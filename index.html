@@ -79,65 +79,85 @@
 </section>
 
 <!-- ABOUT SECTION -->
-<section id="about" style="padding: 100px 0; background: rgba(255, 255, 255, 0.02);">
+<section id="about" style="padding: 80px 0; background: rgba(255, 255, 255, 0.02); border-bottom: 1px solid var(--border);">
     <div class="container">
         <h2 class="section-title">About <span class="gradient-text">Nazir Hussain</span></h2>
         
-        <!-- Main Bio -->
-        <div class="glass-card" style="margin-bottom: 50px; text-align: center;">
-            <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-white);">
-                Currently pursuing a <strong>BTech in Cybersecurity</strong>, I am a dedicated Ethical Hacker and the creator behind <strong>NH TECHNO</strong>. 
-                My mission is to bridge the gap between complex security theories and practical, real-world exploitation. Through my platform, 
-                I share in-depth tutorials, custom-built tools, and comprehensive roadmaps to empower the next generation of digital defenders.
-            </p>
-        </div>
-
-        <!-- Detailed Skill Paragraphs Grid -->
-        <div class="grid">
+        <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: flex-start;">
             
-            <!-- Ethical Hacking -->
-            <div class="glass-card">
-                <h4 style="color: var(--accent); margin-bottom: 15px;"><i class="fas fa-user-secret"></i> Ethical Hacking</h4>
-                <p style="font-size: 0.9rem; color: var(--text-dim);">
-                    Ethical hacking is the core of my research. It involves legally probing systems and networks to identify vulnerabilities before malicious hackers can exploit them. I focus on penetration testing methodologies, vulnerability assessment, and the responsible disclosure of security flaws.
-                </p>
+            <!-- LEFT COLUMN: Primary Technical Skills -->
+            <div style="flex: 1; min-width: 320px; display: flex; flex-direction: column; gap: 20px;">
+                
+                <div class="glass-card">
+                    <h4 style="color: var(--accent); margin-bottom: 10px;"><i class="fas fa-user-secret"></i> Ethical Hacking</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.6;">
+                        My core focus is identifying vulnerabilities legally to secure infrastructures. I specialize in penetration testing methodologies and the responsible disclosure of security flaws to prevent real-world exploits.
+                    </p>
+                </div>
+
+                <div class="glass-card">
+                    <h4 style="color: var(--accent); margin-bottom: 10px;"><i class="fab fa-python"></i> Python for Security</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.6;">
+                        I use Python to automate reconnaissance and build multi-threaded tools. My projects focus on creating custom scanners and exploitation modules that increase efficiency during security audits.
+                    </p>
+                </div>
+
+                <div class="glass-card">
+                    <h4 style="color: var(--accent); margin-bottom: 10px;"><i class="fas fa-code"></i> C++ Systems</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.6;">
+                        Studying C++ allows me to understand low-level system security, memory management, and buffer overflows. This knowledge is vital for hardware-level security analysis and exploit research.
+                    </p>
+                </div>
+
+                <div class="glass-card">
+                    <h4 style="color: var(--accent); margin-bottom: 10px;"><i class="fas fa-globe"></i> Web Pentesting</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.6;">
+                        I hunt for OWASP Top 10 vulnerabilities like SQLi, XSS, and Broken Authentication. Using tools like Burp Suite, I analyze web traffic to harden applications against common internet threats.
+                    </p>
+                </div>
+
             </div>
 
-            <!-- Network Security -->
-            <div class="glass-card">
-                <h4 style="color: var(--accent); margin-bottom: 15px;"><i class="fas fa-network-wired"></i> Network Security</h4>
-                <p style="font-size: 0.9rem; color: var(--text-dim);">
-                    I study the intricacies of data flow and infrastructure protection. This includes analyzing traffic with Wireshark, configuring firewalls, and defending against Man-in-the-Middle (MITM) attacks, sniffing, and spoofing to ensure data integrity and confidentiality.
-                </p>
+            <!-- RIGHT COLUMN: Bio, Profile, and Advanced Topics -->
+            <div style="flex: 1; min-width: 320px; display: flex; flex-direction: column; gap: 20px;">
+                
+                <!-- Profile/Bio Card -->
+                <div class="glass-card" style="text-align: center; border: 1px solid var(--primary);">
+                    <img src="https://yt3.googleusercontent.com/7GS-XD-yt4cfVAsr2MDYuMoZ5cDD32t_MNJBhJB4T2bZKs2t8oatnin2tYGd7hoZi-_d_p5-ZJY=s160-c-k-c0x00ffffff-no-rj" 
+                         style="width: 120px; border-radius: 50%; border: 3px solid var(--primary); margin-bottom: 15px;">
+                    <h3 style="margin-bottom: 10px;">Cybersecurity Student</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-white); margin-bottom: 15px;">
+                        Currently pursuing BTech in Cybersecurity. Creator of NH TECHNO, bridging the gap between theory and real-world hacking.
+                    </p>
+                    <a href="https://youtube.com/@NHtechno" class="btn btn-primary" style="display: block; font-size: 0.8rem;">Visit YouTube Channel</a>
+                </div>
+
+                <div class="glass-card">
+                    <h4 style="color: var(--accent); margin-bottom: 10px;"><i class="fas fa-network-wired"></i> Network Security</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.6;">
+                        I analyze data flow and infrastructure defense, focusing on traffic integrity with Wireshark and protecting networks from MITM attacks, sniffing, and spoofing.
+                    </p>
+                </div>
+
+                <div class="glass-card">
+                    <h4 style="color: var(--accent); margin-bottom: 10px;"><i class="fas fa-microscope"></i> Digital Forensics</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.6;">
+                        Investigating cyber-incidents is key. I learn to trace digital footprints, analyze system logs, and recover evidence to understand how breaches occurred.
+                    </p>
+                </div>
+
+                <div class="glass-card">
+                    <h4 style="color: var(--accent); margin-bottom: 10px;"><i class="fas fa-flag"></i> CTF Challenges</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.6;">
+                        Solving CTF puzzles in cryptography and reverse engineering helps me maintain the "Hacker Mindset" required for solving complex real-world security problems.
+                    </p>
+                </div>
+
             </div>
 
-            <!-- Web Pentesting -->
-            <div class="glass-card">
-                <h4 style="color: var(--accent); margin-bottom: 15px;"><i class="fas fa-globe"></i> Web Pentesting</h4>
-                <p style="font-size: 0.9rem; color: var(--text-dim);">
-                    Web applications are the most targeted interfaces. My work involves hunting for OWASP Top 10 vulnerabilities like SQL Injection, Cross-Site Scripting (XSS), and Broken Authentication using tools like Burp Suite to harden web environments.
-                </p>
-            </div>
-
-            <!-- Python Programming -->
-            <div class="glass-card">
-                <h4 style="color: var(--accent); margin-bottom: 15px;"><i class="fab fa-python"></i> Python for Security</h4>
-                <p style="font-size: 0.9rem; color: var(--text-dim);">
-                    Python is my primary tool for automation. I develop custom reconnaissance scripts, multi-threaded scanners, and exploitation modules. It allows me to build fast, efficient tools like the SPPTI scanner to automate repetitive security tasks.
-                </p>
-            </div>
-
-            <!-- C++ Programming -->
-            <div class="glass-card">
-                <h4 style="color: var(--accent); margin-bottom: 15px;"><i class="fas fa-code"></i> C++ Systems Security</h4>
-                <p style="font-size: 0.9rem; color: var(--text-dim);">
-                    C++ provides deep access to system hardware and memory. I use it to understand low-level security, memory management, and how vulnerabilities like Buffer Overflows occur at the system level, which is essential for exploit development.
-                </p>
-            </div>
-
-            <!-- Digital Forensics -->
-            <div class="glass-card">
-                <h4 style="color: var(--accent); margin-bottom: 15px;"><i class="fas fa-microscope"></i> Digital Forensics</h4>
+        </div>
+    </div>
+</section>
 
 <!-- PROJECTS SECTION -->
 <section id="projects" style="padding: 100px 0;">
