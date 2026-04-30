@@ -1,68 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create Account - NH TECHNO</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | NH TECHNO</title>
+    
+    <!-- CSS & Fonts -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+        }
+        .auth-card {
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+        .auth-card h2 {
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+        .input-group {
+            position: relative;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            color: var(--text-dim);
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+        .input-group input:focus {
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .back-link {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+        .back-link span {
+            color: var(--accent);
+            cursor: pointer;
+            font-weight: 600;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="auth-box" style="max-width:400px; margin:100px auto;">
-    <h2>Create Account</h2>
+<div class="container">
+    <div class="auth-card glass-card">
+        <div style="margin-bottom: 20px;">
+            <i class="fas fa-user-plus fa-3x" style="color: var(--primary);"></i>
+        </div>
+        
+        <h2>Join <span class="gradient-text">NH Academy</span></h2>
+        <p style="color: var(--text-dim); font-size: 0.9rem; margin-bottom: 30px;">Start your journey into cybersecurity.</p>
 
-    <input id="signup-name" placeholder="Username">
-    <input id="signup-email" type="email" placeholder="Email">
-    <input id="signup-password" type="password" placeholder="Password">
-    <input id="signup-confirm" type="password" placeholder="Confirm Password">
+        <form onsubmit="return false;">
+            <!-- Username -->
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="signupName" placeholder="Full Name" required>
+            </div>
 
-    <button onclick="signupUser()">Create Account</button>
+            <!-- Email -->
+            <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="signupEmail" placeholder="Email Address" required>
+            </div>
 
-    <p>Already have account? 
-      <span onclick="window.location.href='index.html'">Login</span>
-    </p>
+            <!-- Password -->
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="signupPassword" placeholder="Create Password" required>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="input-group">
+                <i class="fas fa-shield-alt"></i>
+                <input type="password" id="signupConfirm" placeholder="Confirm Password" required>
+            </div>
+
+            <button onclick="signupUser()" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+                Create Free Account
+            </button>
+        </form>
+
+        <div class="back-link">
+            Already have an account? <span onclick="window.location.href='index.html'">Login</span>
+        </div>
+    </div>
 </div>
 
-<!-- Firebase -->
+<!-- FIREBASE SIGNUP SCRIPT -->
 <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { 
+        getAuth, 
+        createUserWithEmailAndPassword, 
+        sendEmailVerification 
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { 
-  getAuth, 
-  createUserWithEmailAndPassword,
-  sendEmailVerification
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    const firebaseConfig = {
+        apiKey: "AIzaSyBp3NKuTk8i6B5dISNgK4cb79-6M3MrIWk",
+        authDomain: "nh-techno.firebaseapp.com",
+        projectId: "nh-techno",
+    };
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBp3NKuTk8i6B5dISNgK4cb79-6M3MrIWk",
-  authDomain: "nh-techno.firebaseapp.com",
-  projectId: "nh-techno",
-};
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+    window.signupUser = function() {
+        const name = document.getElementById("signupName").value;
+        const email = document.getElementById("signupEmail").value;
+        const password = document.getElementById("signupPassword").value;
+        const confirm = document.getElementById("signupConfirm").value;
 
-window.signupUser = function() {
-  const email = document.getElementById("signup-email").value;
-  const password = document.getElementById("signup-password").value;
-  const confirm = document.getElementById("signup-confirm").value;
+        // Basic Validations
+        if (!name || !email || !password) {
+            alert("Please fill in all fields.");
+            return;
+        }
 
-  if (password !== confirm) {
-    alert("Passwords do not match ❌");
-    return;
-  }
+        if (password !== confirm) {
+            alert("Passwords do not match! ❌");
+            return;
+        }
 
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      sendEmailVerification(userCredential.user);
-      alert("Verification email sent 📩 Check your inbox");
+        if (password.length < 6) {
+            alert("Password should be at least 6 characters.");
+            return;
+        }
 
-      window.location.href = "index.html";
-    })
-    .catch((error) => alert(error.message));
-};
-
+        // Create User
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Send Verification Email
+                sendEmailVerification(userCredential.user)
+                    .then(() => {
+                        alert("Account created successfully! ✅\n\nA verification email has been sent to " + email + ". Please verify your email before logging in.");
+                        window.location.href = "index.html"; // Send them back to login
+                    });
+            })
+            .catch((error) => {
+                alert("Signup Failed: " + error.message);
+            });
+    };
 </script>
 
 </body>
