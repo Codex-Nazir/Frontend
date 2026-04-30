@@ -197,3 +197,43 @@ User 3:43 PM
         </div>
 
         <!-- 10. Bug Bounty Hunting -->     
+
+
+<!-- FIREBASE PROTECTION & LOGOUT SCRIPT -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyBp3NKuTk8i6B5dISNgK4cb79-6M3MrIWk",
+        authDomain: "nh-techno.firebaseapp.com",
+        projectId: "nh-techno",
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // 1. PAGE PROTECTION: Kicks users out if they aren't logged in or verified
+    onAuthStateChanged(auth, (user) => {
+        if (!user) {
+            // No user is signed in
+            window.location.href = "index.html";
+        } else if (!user.emailVerified) {
+            // User logged in but email not verified
+            window.location.href = "index.html";
+        }
+    });
+
+    // 2. LOGOUT FUNCTION: Attached to 'window' so your HTML button can see it
+    window.logoutUser = function() {
+        signOut(auth).then(() => {
+            // Sign-out successful, redirect home
+            window.location.href = "index.html";
+        }).catch((error) => {
+            console.error("Logout Error:", error);
+            alert("Error logging out: " + error.message);
+        });
+    };
+</script>
