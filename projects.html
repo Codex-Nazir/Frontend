@@ -1,104 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Projects - NH TECHNO</title>
-
-<link rel="stylesheet" href="style.css">
-
 <style>
-.projects-page {
-    padding: 80px 20px;
-    text-align: center;
-}
-
-.projects-container {
-    max-width: 1100px;
-    margin: auto;
-}
-
-.project-box {
-    background: #111;
-    border-radius: 15px;
-    padding: 30px;
-    margin-top: 30px;
-    color: #fff;
-    transition: 0.3s;
-}
-
-.project-box:hover {
-    transform: translateY(-5px);
-}
-
-.project-box h3 {
-    margin-bottom: 10px;
-}
-
-.project-box p {
-    font-size: 15px;
-    line-height: 1.6;
-    opacity: 0.9;
-}
-
-.project-btn {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 10px 20px;
-    background: #00ffcc;
-    color: black;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-}
+    .project-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+    .project-card {
+        background: var(--glass);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        overflow: hidden;
+        transition: 0.4s;
+    }
+    .project-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        border-color: var(--accent);
+    }
+    .project-image {
+        height: 200px;
+        background: linear-gradient(45deg, #0f172a, #1e293b);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: var(--primary);
+    }
+    .project-info {
+        padding: 2rem;
+    }
 </style>
 
-</head>
+<section class="projects-page" style="padding-top: 100px;">
+    <div class="container">
+        <h1 class="section-title">Open Source <span class="gradient-text">Tools</span></h1>
+        
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="project-image"><i class="fas fa-search-dollar"></i></div>
+                <div class="project-info">
+                    <h3>SPPTI Scanner</h3>
+                    <p style="color: var(--text-dim); font-size: 0.9rem; margin: 1rem 0;">Smart Passive Threat Intelligence tool for automated domain reconnaissance and risk assessment.</p>
+                    <a href="https://sppti.onrender.com/" class="btn btn-primary" style="width: 100%; text-align: center;">Launch Dashboard</a>
+                </div>
+            </div>
 
-<body>
-
-<section class="projects-page">
-  <div class="projects-container">
-
-    <h1>My Cybersecurity Projects</h1>
-
-    <p style="max-width:700px; margin:auto;">
-      These projects represent my practical skills in cybersecurity, web security, and development. 
-      Each tool is designed to solve real-world problems and demonstrate how security concepts are applied in actual environments.
-    </p>
-
-    <!-- SPPTI -->
-    <div class="project-box">
-      <h3>SPPTI Scanner</h3>
-
-      <p>
-        SPPTI (Smart Passive Threat Intelligence) Scanner is a cybersecurity tool designed to analyze domains and detect potential risks.
-        It helps identify suspicious indicators, domain reputation issues, and possible security threats using automated scanning techniques.
-        This tool demonstrates real-world implementation of threat intelligence concepts and passive reconnaissance methods used by security analysts.
-      </p>
-
-      <a href="https://sppti.onrender.com/" target="_blank" class="project-btn">
-        Launch Tool 🚀
-      </a>
+            <div class="project-card">
+                <div class="project-image"><i class="fas fa-key"></i></div>
+                <div class="project-info">
+                    <h3>VaultGuard Pro</h3>
+                    <p style="color: var(--text-dim); font-size: 0.9rem; margin: 1rem 0;">Advanced entropy-based password analyzer with breach-leak detection simulation.</p>
+                    <a href="https://codex.pythonanywhere.com" class="btn btn-primary" style="width: 100%; text-align: center;">Launch Tool</a>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <!-- PASSWORD -->
-    <div class="project-box">
-      <h3>Password Strength Analyzer</h3>
-
-      <p>
-        This tool analyzes password strength using multiple parameters such as length, complexity, and entropy.
-        It helps users understand how secure their passwords are and provides suggestions to improve them.
-        The project highlights practical implementation of authentication security and awareness against weak passwords and data breaches.
-      </p>
-
-      <a href="https://codex.pythonanywhere.com" target="_blank" class="project-btn">
-        Launch Tool 🚀
-      </a>
-    </div>
-
-  </div>
 </section>
-
-</body>
-</html>
