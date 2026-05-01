@@ -4,42 +4,49 @@
   <!-- Home -->
   <url>
     <loc>https://nhtechno.online/</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-05-01</lastmod>
     <priority>1.0</priority>
   </url>
 
   <!-- Learn -->
   <url>
     <loc>https://nhtechno.online/learn.html</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-05-01</lastmod>
     <priority>0.8</priority>
   </url>
 
   <!-- Projects -->
   <url>
     <loc>https://nhtechno.online/projects.html</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-05-01</lastmod>
     <priority>0.9</priority>
+  </url>
+
+  <!-- Sign Up -->
+  <url>
+    <loc>https://nhtechno.online/signup.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.7</priority>
   </url>
 
   <!-- Privacy Policy -->
   <url>
     <loc>https://nhtechno.online/privacy.html</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-05-01</lastmod>
     <priority>0.5</priority>
   </url>
 
   <!-- Terms -->
   <url>
     <loc>https://nhtechno.online/terms.html</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-05-01</lastmod>
     <priority>0.5</priority>
   </url>
 
   <!-- Disclaimer -->
   <url>
     <loc>https://nhtechno.online/disclaimer.html</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-05-01</lastmod>
     <priority>0.5</priority>
   </url>
 
