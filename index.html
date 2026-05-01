@@ -49,6 +49,7 @@
         <ul class="nav-menu">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
+            <li><a href="#lab">Linux Lab</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#learn">Academy</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -160,7 +161,45 @@
     </div>
 </section>
 
-<!-- PROJECTS SECTION -->
+<!-- LINUX LAB SECTION -->
+<section id="lab" style="padding: 100px 0; background: linear-gradient(135deg, rgba(56, 189, 248, 0.05) 0%, rgba(15, 23, 42, 0.05) 100%); border-bottom: 1px solid var(--border);">
+    <div class="container">
+        <div class="glass-card" style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center; padding: 40px; border: 1px solid rgba(56, 189, 248, 0.2);">
+            <div style="flex: 1; min-width: 300px;">
+                <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Hands-on <span class="gradient-text">Linux Lab</span></h2>
+                <p style="color: var(--text-dim); margin-bottom: 30px; font-size: 1.1rem; line-height: 1.6;">
+                    Master the command line in our secure, cloud-hosted Linux environment. Perfect for practicing penetration testing tools, shell scripting, and system administration without risking your own hardware.
+                </p>
+                <ul style="list-style: none; margin-bottom: 30px; color: var(--text-white);">
+                    <li style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Full Root Access (Sandboxed)</li>
+                    <li style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Pre-installed Security Tools</li>
+                    <li style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Persistent File System</li>
+                </ul>
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <button onclick="openPaymentModal()" class="btn btn-primary" style="padding: 15px 35px;">Unlock Access - ₹9</button>
+                    <span style="color: var(--text-dim); font-size: 0.9rem;">One-time payment</span>
+                </div>
+            </div>
+            <div style="flex: 1; min-width: 300px; position: relative;">
+                <div class="terminal-mockup">
+                    <div class="mockup-header">
+                        <div class="mockup-dots"><span></span><span></span><span></span></div>
+                        <div class="mockup-title">linux-lab.sh</div>
+                    </div>
+                    <div class="mockup-body">
+                        <p><span style="color: #4ade80;">root@nh-techno</span>:<span style="color: #38bdf8;">~</span># nmap -sV 10.0.0.1</p>
+                        <p>Starting Nmap 7.92...</p>
+                        <p>Nmap scan report for 10.0.0.1</p>
+                        <p>PORT   STATE SERVICE VERSION</p>
+                        <p>80/tcp open  http    Apache/2.4.41</p>
+                        <p><span style="color: #4ade80;">root@nh-techno</span>:<span style="color: #38bdf8;">~</span># <span class="blink">_</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section id="projects" style="padding: 100px 0;">
     <div class="container">
         <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 10px;">Security <span class="gradient-text">Repository</span></h2>
@@ -270,6 +309,32 @@
     };
 </script>
 
+<!-- PAYMENT MODAL -->
+<div id="paymentModal" class="modal-overlay">
+    <div class="modal-card">
+        <div class="modal-header">
+            <h3>Complete Payment</h3>
+            <button onclick="closePaymentModal()" class="close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="payment-info">
+                <p>Course: <strong>Premium Linux Lab Access</strong></p>
+                <p>Amount: <strong style="color: var(--accent); font-size: 1.5rem;">₹9.00</strong></p>
+            </div>
+            <div class="payment-methods">
+                <p style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 10px;">Select Payment Method</p>
+                <div class="method active"><i class="fab fa-google-pay"></i> UPI (GPay/PhonePe)</div>
+                <div class="method"><i class="fas fa-credit-card"></i> Card</div>
+            </div>
+            <button id="payButton" onclick="processPayment()" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Pay ₹9.00 Now</button>
+            <p style="text-align: center; font-size: 0.7rem; color: var(--text-dim); margin-top: 15px;">
+                <i class="fas fa-lock"></i> Secured by NH TECHNO Payments
+            </p>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
 <script src="cosmic-flow.js"></script>
 
 </body>
