@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Securing the Internet of Things (IoT) | NH TECHNO Blog</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<canvas id="cosmic-canvas"></canvas>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <div class="nav-logo">
+            <i class="fas fa-terminal"></i> NH TECHNO
+        </div>
+        <ul class="nav-menu">
+            <li><a href="../index.html#home">Home</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="index.html" class="active">Blog</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<article class="container" style="padding: 120px 20px 80px;">
+    <div class="glass-card" style="max-width: 900px; margin: 0 auto; padding: 50px;">
+        <div style="margin-bottom: 30px;">
+            <a href="index.html" style="color: var(--accent); text-decoration: none; font-size: 0.9rem;"><i class="fas fa-arrow-left"></i> Back to Academy</a>
+        </div>
+        
+        <h1 class="gradient-text" style="font-size: 3rem; margin-bottom: 20px; line-height: 1.2;">Securing the Internet of Things (IoT): The Invisible Threat</h1>
+        
+        <div style="display: flex; gap: 20px; color: var(--text-dim); font-size: 0.85rem; margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
+            <span><i class="fas fa-calendar"></i> May 13, 2026</span>
+            <span><i class="fas fa-user"></i> Nazir Hussain</span>
+            <span><i class="fas fa-clock"></i> 9 min read</span>
+        </div>
+
+        <div style="color: var(--text-white); line-height: 1.8; font-size: 1.1rem;" class="blog-content">
+            <p>From smart fridges to industrial sensors, the Internet of Things (IoT) has woven itself into the fabric of our daily lives. However, this convenience comes with a significant security cost. IoT devices are often the weakest link in a network, providing attackers with an easy entry point. In this article, we'll explore why IoT security is so challenging and how you can protect your smart devices.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">The IoT Security Crisis</h2>
+            <p>The core problem with IoT security is that many manufacturers prioritize "speed to market" and "ease of use" over security. These devices are often low-power, low-cost, and lack the processing power for traditional security measures like robust encryption or regular automated patching.</p>
+            
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">Top Vulnerabilities in IoT Devices</h2>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">1. Default Passwords and Hardcoded Credentials</h3>
+            <p>Many IoT devices ship with universal default passwords (like "admin" or "1234") that are publicly available in online databases. Attackers use automated bots to scan the internet for these devices and log in instantly.</p>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">2. Insecure Network Services</h3>
+            <p>Devices often have unnecessary network services enabled (like Telnet, SSH, or UPnP) that are poorly configured or vulnerable to known exploits. These provide direct paths for an attacker to gain control of the device.</p>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">3. Lack of a Secure Update Mechanism</h3>
+            <p>A secure device must be patchable. Many IoT devices have no way to receive security updates, or the update process is so complex that users never bother. This means a vulnerability discovered today will remain on the device forever.</p>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">4. Insecure Data Transfer and Storage</h3>
+            <p>Many devices transmit sensitive data (including passwords and personal information) over the network in plain text. Similarly, data stored on the device or in its associated cloud service may not be encrypted.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">How to Secure Your IoT Ecosystem</h2>
+            <p>You don't have to give up your smart home to stay secure. Follow these best practices:</p>
+            <ul>
+                <li><strong>Change Default Credentials Immediately:</strong> This is the single most important step. Use a unique, strong password for every device.</li>
+                <li><strong>Isolate Your IoT Devices:</strong> Most modern routers allow you to create a "Guest Network." Connect your IoT devices to this separate network so that if one is compromised, the attacker cannot easily reach your primary computers and data.</li>
+                <li><strong>Disable UPnP:</strong> Universal Plug and Play (UPnP) allows devices to automatically open ports on your router, which is a major security risk. Disable it in your router settings.</li>
+                <li><strong>Keep Firmware Updated:</strong> Regularly check the manufacturer's website or app for firmware updates and apply them immediately.</li>
+                <li><strong>Research Before You Buy:</strong> Only buy devices from reputable manufacturers that have a clear history of providing security updates and care about privacy.</li>
+            </ul>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">The Future: Security by Design</h2>
+            <p>Governments and regulatory bodies are starting to take notice. New laws (like the UK's PSTI Act) are beginning to mandate basic security requirements for IoT devices, such as banning default passwords. However, until "Security by Design" becomes the industry standard, the responsibility for security remains with the user.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">Conclusion</h2>
+            <p>The Internet of Things offers incredible potential, but we must not be blind to its risks. By treating every smart device as a potential security liability and taking basic precautions, we can enjoy the benefits of a connected home without sacrificing our privacy and security. Stay smart, stay secure.</p>
+        </div>
+
+        <div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+            <a href="web-app-security-owasp.html" class="btn btn-secondary" style="font-size: 0.8rem;"><i class="fas fa-chevron-left"></i> Previous</a>
+            <a href="data-privacy-ai.html" class="btn btn-secondary" style="font-size: 0.8rem;">Next Article <i class="fas fa-chevron-right"></i></a>
+        </div>
+    </div>
+</article>
+
+<footer style="padding: 50px 0; border-top: 1px solid var(--border); text-align: center;">
+    <div class="container">
+        <p style="color: var(--text-dim); font-size: 0.8rem;">&copy; 2026 NH TECHNO | <a href="../privacy.html" style="color: var(--accent);">Privacy Policy</a> | <a href="../terms.html" style="color: var(--accent);">Terms of Service</a></p>
+    </div>
+</footer>
+
+<script src="../cosmic-flow.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 10 Reconnaissance Tools for Network Security | NH TECHNO Blog</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<canvas id="cosmic-canvas"></canvas>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <div class="nav-logo">
+            <i class="fas fa-terminal"></i> NH TECHNO
+        </div>
+        <ul class="nav-menu">
+            <li><a href="../index.html#home">Home</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="index.html" class="active">Blog</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<article class="container" style="padding: 120px 20px 80px;">
+    <div class="glass-card" style="max-width: 900px; margin: 0 auto; padding: 50px;">
+        <div style="margin-bottom: 30px;">
+            <a href="index.html" style="color: var(--accent); text-decoration: none; font-size: 0.9rem;"><i class="fas fa-arrow-left"></i> Back to Academy</a>
+        </div>
+        
+        <h1 class="gradient-text" style="font-size: 3rem; margin-bottom: 20px; line-height: 1.2;">Top 10 Reconnaissance Tools for Network Security</h1>
+        
+        <div style="display: flex; gap: 20px; color: var(--text-dim); font-size: 0.85rem; margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
+            <span><i class="fas fa-calendar"></i> May 13, 2026</span>
+            <span><i class="fas fa-user"></i> Nazir Hussain</span>
+            <span><i class="fas fa-clock"></i> 8 min read</span>
+        </div>
+
+        <div style="color: var(--text-white); line-height: 1.8; font-size: 1.1rem;" class="blog-content">
+            <p>In the world of ethical hacking, reconnaissance (or information gathering) is the most critical phase of any engagement. Before you can secure a network, you must understand its layout, identifying every host, service, and potential entry point. As the saying goes, "Know your enemy and know yourself." In this article, we'll cover the top 10 tools every security professional should have in their recon arsenal.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">1. Nmap (Network Mapper)</h2>
+            <p>Nmap is the undisputed king of network scanning. It's used to discover hosts and services on a computer network by sending packets and analyzing the responses. Whether you're doing a simple ping sweep or a complex OS fingerprinting scan, Nmap is your go-to tool.</p>
+            <pre style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; font-family: monospace; color: var(--accent);">nmap -sV -sC -O target-ip</pre>
+            
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">2. Shodan: The Search Engine for IoT</h2>
+            <p>Shodan is often called the "search engine for hackers." Unlike Google, which indexes web pages, Shodan indexes everything else—webcams, routers, industrial control systems, and more. It's an invaluable tool for finding publicly exposed devices and services.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">3. Wireshark: The Protocol Analyzer</h2>
+            <p>While often used for troubleshooting, Wireshark is a powerful recon tool for sniffing and analyzing network traffic. It allows you to see exactly what's happening on your wire at a microscopic level, helping you identify insecure protocols or hidden communications.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">4. TheHarvester</h2>
+            <p>TheHarvester is a great tool for gathering emails, subdomains, hosts, employee names, open ports, and banners from different public sources like search engines and PGP key servers. It's essential for the OSINT phase of a penetration test.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">5. Maltego</h2>
+            <p>Maltego is a specialized tool for link analysis. it allows you to visualize relationships between people, companies, domains, and IP addresses. It's an incredibly powerful tool for mapping out an entire organization's digital footprint.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">6. Nikto</h2>
+            <p>Nikto is an open-source web server scanner that performs comprehensive tests against web servers for multiple items, including over 6700 potentially dangerous files/programs and outdated versions of over 1250 servers.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">7. Recon-ng</h2>
+            <p>Recon-ng is a full-featured reconnaissance framework written in Python. It has a modular design and an interactive console similar to Metasploit, making it easy to automate complex OSINT tasks.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">8. Censys</h2>
+            <p>Similar to Shodan, Censys helps security researchers discover the devices and networks that compose the Internet. It provides a data-driven view of how attackers see your infrastructure.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">9. Sublist3r</h2>
+            <p>Sublist3r is a Python tool designed to enumerate subdomains of websites using OSINT. It helps penetration testers and bug hunters find subdomains that might be hosting forgotten or vulnerable staging environments.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">10. Netdiscover</h2>
+            <p>Netdiscover is an active/passive ARP reconnaissance tool, mainly used to gather information about wireless networks or switched networks without a DHCP server. It's great for finding hidden hosts on a local network.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">Conclusion</h2>
+            <p>Reconnaissance is a skill that combines technical expertise with creative thinking. While these tools provide the data, it's up to the security professional to interpret it and find the path of least resistance. Remember to always use these tools ethically and within the scope of your legal authority. Happy hunting!</p>
+        </div>
+
+        <div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+            <a href="ethical-hacking-pathway.html" class="btn btn-secondary" style="font-size: 0.8rem;"><i class="fas fa-chevron-left"></i> Previous</a>
+            <a href="social-engineering-tactics.html" class="btn btn-secondary" style="font-size: 0.8rem;">Next Article <i class="fas fa-chevron-right"></i></a>
+        </div>
+    </div>
+</article>
+
+<footer style="padding: 50px 0; border-top: 1px solid var(--border); text-align: center;">
+    <div class="container">
+        <p style="color: var(--text-dim); font-size: 0.8rem;">&copy; 2026 NH TECHNO | <a href="../privacy.html" style="color: var(--accent);">Privacy Policy</a> | <a href="../terms.html" style="color: var(--accent);">Terms of Service</a></p>
+    </div>
+</footer>
+
+<script src="../cosmic-flow.js"></script>
+</body>
+</html>

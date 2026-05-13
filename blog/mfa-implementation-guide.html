@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MFA: Your Best Defense Against Account Takeover | NH TECHNO Blog</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<canvas id="cosmic-canvas"></canvas>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <div class="nav-logo">
+            <i class="fas fa-terminal"></i> NH TECHNO
+        </div>
+        <ul class="nav-menu">
+            <li><a href="../index.html#home">Home</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="index.html" class="active">Blog</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<article class="container" style="padding: 120px 20px 80px;">
+    <div class="glass-card" style="max-width: 900px; margin: 0 auto; padding: 50px;">
+        <div style="margin-bottom: 30px;">
+            <a href="index.html" style="color: var(--accent); text-decoration: none; font-size: 0.9rem;"><i class="fas fa-arrow-left"></i> Back to Academy</a>
+        </div>
+        
+        <h1 class="gradient-text" style="font-size: 3rem; margin-bottom: 20px; line-height: 1.2;">MFA: Your Best Defense Against Account Takeover</h1>
+        
+        <div style="display: flex; gap: 20px; color: var(--text-dim); font-size: 0.85rem; margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
+            <span><i class="fas fa-calendar"></i> May 13, 2026</span>
+            <span><i class="fas fa-user"></i> Nazir Hussain</span>
+            <span><i class="fas fa-clock"></i> 7 min read</span>
+        </div>
+
+        <div style="color: var(--text-white); line-height: 1.8; font-size: 1.1rem;" class="blog-content">
+            <p>Passwords are broken. In a world of billion-record leaks and sophisticated phishing, a password alone is no longer enough to protect your accounts. Multi-Factor Authentication (MFA) is the single most effective tool we have to prevent unauthorized access. In this article, we'll explain why you need it and how to set it up correctly.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">What is MFA?</h2>
+            <p>MFA requires you to provide two or more verification factors to gain access to a resource. These factors generally fall into three categories:</p>
+            <ol>
+                <li><strong>Something You Know:</strong> A password, PIN, or security question.</li>
+                <li><strong>Something You Have:</strong> A smartphone, a hardware token (like YubiKey), or a smart card.</li>
+                <li><strong>Something You Are:</strong> Biometrics like fingerprints, facial recognition, or iris scans.</li>
+            </ol>
+            <p>By requiring factors from different categories, an attacker must compromise multiple independent layers to succeed.</p>
+            
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">Not All MFA is Created Equal</h2>
+            <p>While any MFA is better than none, some methods are significantly more secure than others.</p>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">1. SMS and Email Codes (The Weakest)</h3>
+            <p>Receiving a code via text message or email is common, but it's vulnerable to <strong>SIM swapping</strong> and email account compromise. Attackers can also use phishing pages to trick you into entering the code in real-time.</p>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">2. Authenticator Apps (The Standard)</h3>
+            <p>Apps like Google Authenticator, Authy, or Microsoft Authenticator use Time-based One-Time Passwords (TOTP). Since the code is generated locally on your device and never sent over the network, it's immune to SIM swapping. However, it can still be phished.</p>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">3. Hardware Security Keys (The Gold Standard)</h3>
+            <p>Devices like YubiKeys use the FIDO2/WebAuthn standard. They require a physical touch to authorize a login and are cryptographically linked to the specific website you are visiting. This makes them <strong>immune to phishing</strong>—if you are on a fake site, the key simply won't work.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">The "MFA Fatigue" Attack</h2>
+            <p>As MFA becomes more common, attackers have developed new tactics. In an "MFA Fatigue" attack, the attacker (who already has your password) sends dozens of push notification requests to your phone, hoping you'll get annoyed or distracted and eventually click "Approve." Never approve an MFA request you didn't initiate!</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">The Importance of Backup Codes</h2>
+            <p>What happens if you lose your phone or your security key? Every service that offers MFA will also provide "Backup Codes." You must store these securely (ideally in a physical safe or a secure password manager) to ensure you don't get locked out of your own account.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">Conclusion</h2>
+            <p>In the modern threat landscape, using a password alone is like leaving your front door unlocked. MFA adds a heavy-duty deadbolt. While it adds a few seconds to your login process, the peace of mind it provides is invaluable. Take 10 minutes today to enable MFA on your email, banking, and social media accounts. It's the best security decision you'll ever make. Stay secure.</p>
+        </div>
+
+        <div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+            <a href="data-privacy-ai.html" class="btn btn-secondary" style="font-size: 0.8rem;"><i class="fas fa-chevron-left"></i> Previous</a>
+            <a href="malware-analysis-basics.html" class="btn btn-secondary" style="font-size: 0.8rem;">Next Article <i class="fas fa-chevron-right"></i></a>
+        </div>
+    </div>
+</article>
+
+<footer style="padding: 50px 0; border-top: 1px solid var(--border); text-align: center;">
+    <div class="container">
+        <p style="color: var(--text-dim); font-size: 0.8rem;">&copy; 2026 NH TECHNO | <a href="../privacy.html" style="color: var(--accent);">Privacy Policy</a> | <a href="../terms.html" style="color: var(--accent);">Terms of Service</a></p>
+    </div>
+</footer>
+
+<script src="../cosmic-flow.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | NH TECHNO</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<canvas id="cosmic-canvas"></canvas>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <div class="nav-logo">
+            <i class="fas fa-terminal"></i> NH TECHNO
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="blog/index.html">Blog</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<section class="container" style="padding: 120px 20px 80px;">
+    <div style="text-align: center; margin-bottom: 60px;">
+        <h1 class="gradient-text" style="font-size: 3.5rem; margin-bottom: 20px;">Get In Touch</h1>
+        <p style="color: var(--text-dim); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
+            Have a question about a tool, want to collaborate on a security project, or just want to say hi? We'd love to hear from you.
+        </p>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 40px; justify-content: center;">
+        <!-- Contact Info -->
+        <div style="flex: 1; min-width: 320px; max-width: 400px;">
+            <div class="glass-card" style="margin-bottom: 20px;">
+                <i class="fas fa-envelope fa-2x" style="color: var(--accent); margin-bottom: 15px;"></i>
+                <h3 style="margin-bottom: 5px;">Email Us</h3>
+                <p style="color: var(--text-dim);">khnitaly00@gmail.com</p>
+                <p style="color: var(--text-dim); font-size: 0.8rem; margin-top: 10px;">We usually respond within 24 hours.</p>
+            </div>
+
+            <div class="glass-card" style="margin-bottom: 20px;">
+                <i class="fab fa-linkedin fa-2x" style="color: var(--accent); margin-bottom: 15px;"></i>
+                <h3 style="margin-bottom: 5px;">LinkedIn</h3>
+                <p style="color: var(--text-dim);">linkedin.com/in/nazir-hussain/</p>
+            </div>
+
+            <div class="glass-card">
+                <i class="fab fa-discord fa-2x" style="color: var(--accent); margin-bottom: 15px;"></i>
+                <h3 style="margin-bottom: 5px;">Discord Community</h3>
+                <p style="color: var(--text-dim);">Join NH TECHNO Secure</p>
+                <a href="#" class="btn btn-secondary" style="margin-top: 15px; font-size: 0.8rem;">Coming Soon</a>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div style="flex: 2; min-width: 320px; max-width: 700px;">
+            <form class="glass-card" style="padding: 40px;" onsubmit="return false;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label style="display: block; color: var(--text-white); margin-bottom: 8px; font-size: 0.9rem;">Full Name</label>
+                        <input type="text" placeholder="John Doe" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: white; border-radius: 8px; font-family: inherit;">
+                    </div>
+                    <div>
+                        <label style="display: block; color: var(--text-white); margin-bottom: 8px; font-size: 0.9rem;">Email Address</label>
+                        <input type="email" placeholder="john@example.com" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: white; border-radius: 8px; font-family: inherit;">
+                    </div>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; color: var(--text-white); margin-bottom: 8px; font-size: 0.9rem;">Subject</label>
+                    <select style="width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: white; border-radius: 8px; font-family: inherit;">
+                        <option>General Inquiry</option>
+                        <option>Security Consultation</option>
+                        <option>Tool Support</option>
+                        <option>Collaboration</option>
+                    </select>
+                </div>
+                <div style="margin-bottom: 30px;">
+                    <label style="display: block; color: var(--text-white); margin-bottom: 8px; font-size: 0.9rem;">Your Message</label>
+                    <textarea rows="6" placeholder="How can we help you?" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: white; border-radius: 8px; font-family: inherit;"></textarea>
+                </div>
+                <button class="btn btn-primary" style="width: 100%; padding: 15px;">Send Message <i class="fas fa-paper-plane" style="margin-left: 10px;"></i></button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<footer style="padding: 50px 0; border-top: 1px solid var(--border); text-align: center;">
+    <div class="container">
+        <p style="color: var(--text-dim); font-size: 0.8rem;">&copy; 2026 NH TECHNO | <a href="privacy.html" style="color: var(--accent);">Privacy Policy</a> | <a href="terms.html" style="color: var(--accent);">Terms of Service</a></p>
+    </div>
+</footer>
+
+<script src="cosmic-flow.js"></script>
+</body>
+</html>

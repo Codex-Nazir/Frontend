@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ransomware Mitigation & Protection | NH TECHNO Blog</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<canvas id="cosmic-canvas"></canvas>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <div class="nav-logo">
+            <i class="fas fa-terminal"></i> NH TECHNO
+        </div>
+        <ul class="nav-menu">
+            <li><a href="../index.html#home">Home</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="index.html" class="active">Blog</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<article class="container" style="padding: 120px 20px 80px;">
+    <div class="glass-card" style="max-width: 900px; margin: 0 auto; padding: 50px;">
+        <div style="margin-bottom: 30px;">
+            <a href="index.html" style="color: var(--accent); text-decoration: none; font-size: 0.9rem;"><i class="fas fa-arrow-left"></i> Back to Academy</a>
+        </div>
+        
+        <h1 class="gradient-text" style="font-size: 3rem; margin-bottom: 20px; line-height: 1.2;">Ransomware Mitigation: Protecting Your Data from Extortion</h1>
+        
+        <div style="display: flex; gap: 20px; color: var(--text-dim); font-size: 0.85rem; margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
+            <span><i class="fas fa-calendar"></i> May 13, 2026</span>
+            <span><i class="fas fa-user"></i> Nazir Hussain</span>
+            <span><i class="fas fa-clock"></i> 9 min read</span>
+        </div>
+
+        <div style="color: var(--text-white); line-height: 1.8; font-size: 1.1rem;" class="blog-content">
+            <p>Ransomware is the most visible and destructive cyber threat facing organizations today. It involves encrypting a victim's data and demanding payment (usually in cryptocurrency) for the decryption key. Modern ransomware attacks often include "double extortion," where attackers also steal sensitive data and threaten to leak it if the ransom isn't paid. In this article, we'll cover how to protect your data and stay resilient against ransomware.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">How Ransomware Spreads</h2>
+            <p>Attackers use several common vectors to deliver ransomware:</p>
+            <ul>
+                <li><strong>Phishing:</strong> Malicious email attachments or links that download the ransomware payload.</li>
+                <li><strong>RDP Exploitation:</strong> Brute-forcing or using stolen credentials to log in via Remote Desktop Protocol.</li>
+                <li><strong>Software Vulnerabilities:</strong> Exploiting unpatched flaws in web servers or VPNs.</li>
+                <li><strong>Drive-by Downloads:</strong> Visiting a compromised website that automatically downloads malware via browser exploits.</li>
+            </ul>
+            
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">Key Mitigation Strategies</h2>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">1. The 3-2-1 Backup Strategy</h3>
+            <p>Backups are your ultimate insurance policy. Follow the 3-2-1 rule:</p>
+            <ul>
+                <li>Keep at least <strong>3</strong> copies of your data.</li>
+                <li>Store them on <strong>2</strong> different media types (e.g., cloud and local disk).</li>
+                <li>Keep at least <strong>1</strong> copy offsite and <strong>offline</strong> (immutable).</li>
+            </ul>
+            <p>If your backups are connected to your network, ransomware can encrypt them too. Always have an "air-gapped" copy.</p>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">2. Patch Management</h3>
+            <p>Ransomware often exploits known vulnerabilities that have been patched for months. Implement a rigorous patching schedule for all operating systems, applications, and firmware. Prioritize public-facing assets like servers and firewalls.</p>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">3. Implement Endpoint Detection and Response (EDR)</h3>
+            <p>Traditional antivirus is no match for modern ransomware. EDR tools monitor system behavior in real-time and can automatically detect and block ransomware activity (like rapid file encryption) before it spreads across the network.</p>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">4. Disable Unnecessary Services</h3>
+            <p>Reduce your attack surface. If you don't need RDP, disable it. If you must use it, place it behind a VPN and enforce Multi-Factor Authentication (MFA). Disable macros in Office documents by default, as these are a common delivery vector for malware.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">Should You Pay the Ransom?</h2>
+            <p>Most law enforcement agencies (including the FBI) recommend <strong>NOT</strong> paying the ransom. Paying doesn't guarantee you'll get your data back, it funds criminal organizations, and it makes you a target for future attacks. The only way to win is to be prepared to restore from backups.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">Conclusion</h2>
+            <p>Ransomware is a terrifying threat, but it's not unbeatable. By combining a robust backup strategy with strong technical controls and a culture of security awareness, you can significantly reduce your risk. Don't wait for the ransom note to appear—take action today to protect your data. Stay resilient, stay secure.</p>
+        </div>
+
+        <div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+            <a href="secure-coding-fundamentals.html" class="btn btn-secondary" style="font-size: 0.8rem;"><i class="fas fa-chevron-left"></i> Previous</a>
+            <div style="color: var(--text-dim); font-size: 0.8rem;">End of Academy Series</div>
+        </div>
+    </div>
+</article>
+
+<footer style="padding: 50px 0; border-top: 1px solid var(--border); text-align: center;">
+    <div class="container">
+        <p style="color: var(--text-dim); font-size: 0.8rem;">&copy; 2026 NH TECHNO | <a href="../privacy.html" style="color: var(--accent);">Privacy Policy</a> | <a href="../terms.html" style="color: var(--accent);">Terms of Service</a></p>
+    </div>
+</footer>
+
+<script src="../cosmic-flow.js"></script>
+</body>
+</html>

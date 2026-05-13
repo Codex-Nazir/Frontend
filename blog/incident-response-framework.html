@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incident Response Framework | NH TECHNO Blog</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<canvas id="cosmic-canvas"></canvas>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <div class="nav-logo">
+            <i class="fas fa-terminal"></i> NH TECHNO
+        </div>
+        <ul class="nav-menu">
+            <li><a href="../index.html#home">Home</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="index.html" class="active">Blog</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<article class="container" style="padding: 120px 20px 80px;">
+    <div class="glass-card" style="max-width: 900px; margin: 0 auto; padding: 50px;">
+        <div style="margin-bottom: 30px;">
+            <a href="index.html" style="color: var(--accent); text-decoration: none; font-size: 0.9rem;"><i class="fas fa-arrow-left"></i> Back to Academy</a>
+        </div>
+        
+        <h1 class="gradient-text" style="font-size: 3rem; margin-bottom: 20px; line-height: 1.2;">Incident Response: What to Do When a Breach Happens</h1>
+        
+        <div style="display: flex; gap: 20px; color: var(--text-dim); font-size: 0.85rem; margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
+            <span><i class="fas fa-calendar"></i> May 13, 2026</span>
+            <span><i class="fas fa-user"></i> Nazir Hussain</span>
+            <span><i class="fas fa-clock"></i> 9 min read</span>
+        </div>
+
+        <div style="color: var(--text-white); line-height: 1.8; font-size: 1.1rem;" class="blog-content">
+            <p>In cybersecurity, it's often said that there are two types of organizations: those that have been breached, and those that don't know it yet. A security incident is a matter of "when," not "if." Incident Response (IR) is the structured process of managing the aftermath of a security breach or cyberattack. In this article, we'll cover the industry-standard SANS/NIST framework for responding to incidents.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">The 6 Phases of Incident Response</h2>
+            <p>The goal of IR is to handle the situation in a way that limits damage and reduces recovery time and costs. Following a structured framework prevents panic and ensures no critical steps are missed.</p>
+            
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">1. Preparation</h3>
+            <p>This is the most critical and often overlooked phase. It involves developing an IR plan, establishing an Incident Response Team (CSIRT), and ensuring you have the necessary tools and access to logs before an incident occurs. You can't start building your defense while the house is already on fire.</p>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">2. Identification (Detection)</h3>
+            <p>This is the phase where you determine if you're actually dealing with a security incident. This involves analyzing logs, alerts from security tools (like EDR or SIEM), and user reports. The goal is to define the "Who, What, Where, and When" of the incident.</p>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">3. Containment</h3>
+            <p>Once an incident is confirmed, the priority is to stop the bleeding. Containment is often split into two sub-phases: short-term containment (e.g., isolating a compromised laptop from the network) and long-term containment (e.g., patching the vulnerability that allowed the attacker in).</p>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">4. Eradication</h3>
+            <p>After the incident is contained, you must remove the root cause. This might involve deleting malware, disabling compromised accounts, and identifying all affected systems. It's not enough to just stop the attack; you must ensure the attacker has no persistent backdoors left behind.</p>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">5. Recovery</h3>
+            <p>In the recovery phase, systems are carefully restored to normal operation. This involves restoring from clean backups, verifying that systems are patched and secure, and monitoring for any signs of the attacker returning. Business continuity is the main goal here.</p>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">6. Lessons Learned (Post-Incident Activity)</h3>
+            <p>Once the dust has settled, the team must meet to analyze the incident. What went well? What went wrong? How can the IR plan be improved? This documentation is vital for legal compliance and for preventing similar incidents in the future.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">Conclusion</h2>
+            <p>Incident Response is a high-pressure, complex task, but having a plan makes it manageable. By being prepared and following a structured framework, organizations can weather a breach and come out stronger on the other side. Remember: the first 24 hours of an incident often determine its total cost. Be ready, stay calm, and follow the process. Stay resilient, stay secure.</p>
+        </div>
+
+        <div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+            <a href="cloud-security-best-practices.html" class="btn btn-secondary" style="font-size: 0.8rem;"><i class="fas fa-chevron-left"></i> Previous</a>
+            <a href="secure-coding-fundamentals.html" class="btn btn-secondary" style="font-size: 0.8rem;">Next Article <i class="fas fa-chevron-right"></i></a>
+        </div>
+    </div>
+</article>
+
+<footer style="padding: 50px 0; border-top: 1px solid var(--border); text-align: center;">
+    <div class="container">
+        <p style="color: var(--text-dim); font-size: 0.8rem;">&copy; 2026 NH TECHNO | <a href="../privacy.html" style="color: var(--accent);">Privacy Policy</a> | <a href="../terms.html" style="color: var(--accent);">Terms of Service</a></p>
+    </div>
+</footer>
+
+<script src="../cosmic-flow.js"></script>
+</body>
+</html>

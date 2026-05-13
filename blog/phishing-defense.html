@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Phishing Awareness & Prevention | NH TECHNO Blog</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<canvas id="cosmic-canvas"></canvas>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <div class="nav-logo">
+            <i class="fas fa-terminal"></i> NH TECHNO
+        </div>
+        <ul class="nav-menu">
+            <li><a href="../index.html#home">Home</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="index.html" class="active">Blog</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<article class="container" style="padding: 120px 20px 80px;">
+    <div class="glass-card" style="max-width: 900px; margin: 0 auto; padding: 50px;">
+        <div style="margin-bottom: 30px;">
+            <a href="index.html" style="color: var(--accent); text-decoration: none; font-size: 0.9rem;"><i class="fas fa-arrow-left"></i> Back to Academy</a>
+        </div>
+        
+        <h1 class="gradient-text" style="font-size: 3rem; margin-bottom: 20px; line-height: 1.2;">Advanced Phishing Awareness & Prevention</h1>
+        
+        <div style="display: flex; gap: 20px; color: var(--text-dim); font-size: 0.85rem; margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
+            <span><i class="fas fa-calendar"></i> May 13, 2026</span>
+            <span><i class="fas fa-user"></i> Nazir Hussain</span>
+            <span><i class="fas fa-clock"></i> 8 min read</span>
+        </div>
+
+        <div style="color: var(--text-white); line-height: 1.8; font-size: 1.1rem;" class="blog-content">
+            <p>Phishing remains the most prevalent cyber threat in the modern digital landscape. Despite billions invested in technical security controls, the human element remains the most vulnerable point in any security infrastructure. In this deep dive, we explore the evolution of phishing and how individuals and organizations can build a robust defense-in-depth strategy.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">The Evolution of Phishing</h2>
+            <p>Gone are the days of the "Nigerian Prince" emails filled with obvious spelling mistakes and generic greetings. Modern phishing attacks, often referred to as spear-phishing or whaling, are highly targeted and psychologically sophisticated. Attackers now leverage Open Source Intelligence (OSINT) to gather specific information about their targets, making their fraudulent messages almost indistinguishable from legitimate business communications.</p>
+            
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">1. Spear Phishing</h3>
+            <p>Spear phishing is a targeted attempt to steal sensitive information such as account credentials or financial information from a specific victim. Unlike generic phishing, which casts a wide net, spear phishing is a precision strike. The attacker might pose as a trusted colleague, a supervisor, or a known service provider, referencing recent projects or internal terminology to build trust.</p>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">2. Business Email Compromise (BEC)</h3>
+            <p>BEC is a sophisticated scam that targets businesses that frequently make wire transfer payments. The attacker compromises a legitimate business email account through social engineering or computer intrusion to conduct unauthorized transfers of funds. This often involves impersonating high-level executives (CEO fraud) to pressure employees into bypassing standard security protocols.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">Technical Indicators of a Phishing Attack</h2>
+            <p>While attackers are getting better, there are always technical breadcrumbs. Understanding these can help you spot a scam before clicking a malicious link.</p>
+            <ul>
+                <li><strong>Sender Address Mismatch:</strong> Always inspect the actual email address, not just the display name. Look for subtle misspellings (e.g., support@micros0ft.com instead of microsoft.com).</li>
+                <li><strong>URL Obfuscation:</strong> Hover over any link before clicking to see the actual destination URL. Attackers often use URL shorteners or deceptive subdomains (e.g., login.paypal.secure-update.com).</li>
+                <li><strong>Urgent or Threatening Language:</strong> Phrases like "Immediate action required" or "Your account will be suspended" are designed to trigger a fear response, bypassing your critical thinking.</li>
+                <li><strong>Unusual Attachments:</strong> Be extremely wary of unexpected attachments, especially those with macro-enabled formats like .docm or .xlsm, or executable files like .exe or .scr.</li>
+            </ul>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">The Psychology of the Click</h2>
+            <p>Why do smart people click on phishing links? Hacking the human brain is often easier than hacking a firewall. Attackers use several psychological triggers:</p>
+            <ol>
+                <li><strong>Authority:</strong> We are conditioned to follow instructions from supervisors or government officials.</li>
+                <li><strong>Scarcity/Urgency:</strong> The fear of missing out or losing access to an account drives impulsive behavior.</li>
+                <li><strong>Curiosity:</strong> "You won't believe what's in this document" is a classic hook.</li>
+                <li><strong>Helpfulness:</strong> Exploiting our natural desire to be helpful to colleagues or those in need.</li>
+            </ol>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">Building a Human Firewall</h2>
+            <p>A multi-layered defense strategy is essential. Here is how to protect yourself and your organization:</p>
+            <p><strong>Enable Multi-Factor Authentication (MFA):</strong> Even if an attacker steals your password, MFA provides a critical second layer of defense. Hardware keys (U2F) are the gold standard for preventing phishing-based account takeovers.</p>
+            <p><strong>Regular Training and Simulations:</strong> Security awareness shouldn't be a one-time event. Organizations should run periodic phishing simulations to help employees recognize and report suspicious emails in a safe environment.</p>
+            <p><strong>Implement Email Security Protocols:</strong> Use SPF (Sender Policy Framework), DKIM (DomainKeys Identified Mail), and DMARC (Domain-based Message Authentication, Reporting, and Conformance) to prevent attackers from spoofing your domain.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">Conclusion</h2>
+            <p>Phishing is a dynamic threat that will continue to evolve alongside our technology. By combining technical security controls with a high level of security awareness, we can significantly reduce the risk of falling victim to these attacks. Remember the golden rule of the internet: If it looks too good to be true, or if it's pressuring you to act immediately, it's probably a phishing attempt. Stay vigilant, stay secure.</p>
+        </div>
+
+        <div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; gap: 15px;">
+                <span style="color: var(--text-dim); font-size: 0.9rem;">Share:</span>
+                <a href="#" style="color: var(--accent);"><i class="fab fa-twitter"></i></a>
+                <a href="#" style="color: var(--accent);"><i class="fab fa-linkedin"></i></a>
+                <a href="#" style="color: var(--accent);"><i class="fab fa-facebook"></i></a>
+            </div>
+            <a href="index.html" class="btn btn-secondary" style="font-size: 0.8rem;">Next Article <i class="fas fa-chevron-right"></i></a>
+        </div>
+    </div>
+</article>
+
+<footer style="padding: 50px 0; border-top: 1px solid var(--border); text-align: center;">
+    <div class="container">
+        <p style="color: var(--text-dim); font-size: 0.8rem;">&copy; 2026 NH TECHNO | <a href="../privacy.html" style="color: var(--accent);">Privacy Policy</a> | <a href="../terms.html" style="color: var(--accent);">Terms of Service</a></p>
+    </div>
+</footer>
+
+<script src="../cosmic-flow.js"></script>
+</body>
+</html>

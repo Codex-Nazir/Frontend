@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Security Best Practices | NH TECHNO Blog</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<canvas id="cosmic-canvas"></canvas>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <div class="nav-logo">
+            <i class="fas fa-terminal"></i> NH TECHNO
+        </div>
+        <ul class="nav-menu">
+            <li><a href="../index.html#home">Home</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="index.html" class="active">Blog</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<article class="container" style="padding: 120px 20px 80px;">
+    <div class="glass-card" style="max-width: 900px; margin: 0 auto; padding: 50px;">
+        <div style="margin-bottom: 30px;">
+            <a href="index.html" style="color: var(--accent); text-decoration: none; font-size: 0.9rem;"><i class="fas fa-arrow-left"></i> Back to Academy</a>
+        </div>
+        
+        <h1 class="gradient-text" style="font-size: 3rem; margin-bottom: 20px; line-height: 1.2;">Cloud Security Best Practices: Defending the Modern Infrastructure</h1>
+        
+        <div style="display: flex; gap: 20px; color: var(--text-dim); font-size: 0.85rem; margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
+            <span><i class="fas fa-calendar"></i> May 13, 2026</span>
+            <span><i class="fas fa-user"></i> Nazir Hussain</span>
+            <span><i class="fas fa-clock"></i> 8 min read</span>
+        </div>
+
+        <div style="color: var(--text-white); line-height: 1.8; font-size: 1.1rem;" class="blog-content">
+            <p>The "Cloud" is just someone else's computer, but on a massive, highly complex scale. As organizations move their data and applications to platforms like AWS, Azure, and Google Cloud, the traditional security perimeter has vanished. In this article, we'll explore the shared responsibility model and the essential best practices for securing your cloud environment.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">The Shared Responsibility Model</h2>
+            <p>One of the biggest misconceptions about the cloud is that the provider is responsible for all security. In reality, it's a partnership. While the provider (AWS/Azure/GCP) is responsible for the security *of* the cloud (physical infrastructure, hardware, hypervisors), you are responsible for the security *in* the cloud (your data, configurations, user access, and applications).</p>
+            
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">Top Cloud Security Best Practices</h2>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">1. Implement Least Privilege Access (IAM)</h3>
+            <p>Identity and Access Management (IAM) is the new perimeter. Ensure that every user, service, and application has only the minimum permissions necessary to perform its function. Never use root accounts for daily tasks and always enforce Multi-Factor Authentication (MFA).</p>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">2. Secure Your Storage Buckets</h3>
+            <p>Misconfigured storage (like AWS S3 buckets) is one of the most common causes of data breaches. Ensure that your buckets are not publicly readable or writable unless absolutely necessary. Use automated tools to scan for and remediate public buckets.</p>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">3. Encrypt Everything (At Rest and In Transit)</h3>
+            <p>Data should be encrypted whenever it's not being actively processed. Use the cloud provider's native encryption tools (like AWS KMS or Azure Key Vault) to manage your keys securely. Ensure all communication is handled over HTTPS/TLS.</p>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">4. Monitor and Audit Logs</h3>
+            <p>You can't defend what you can't see. Enable comprehensive logging (like AWS CloudTrail or Azure Monitor) to track every action taken in your environment. Use SIEM (Security Information and Event Management) tools to analyze these logs and alert you to suspicious activity in real-time.</p>
+
+            <h3 style="color: var(--accent); margin-top: 30px; margin-bottom: 15px;">5. Implement Infrastructure as Code (IaC)</h3>
+            <p>Manual configuration is prone to human error. Use tools like Terraform or CloudFormation to define your infrastructure in code. This allows you to peer-review changes, version control your configuration, and ensure a consistent security posture across all environments.</p>
+
+            <h2 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">Conclusion</h2>
+            <p>Cloud security is a continuous process, not a one-time setup. As your cloud footprint grows, so does your attack surface. By following the shared responsibility model and implementing these best practices, you can leverage the power of the cloud without sacrificing your security. Remember: in the cloud, configuration is everything. Stay diligent, stay secure.</p>
+        </div>
+
+        <div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+            <a href="malware-analysis-basics.html" class="btn btn-secondary" style="font-size: 0.8rem;"><i class="fas fa-chevron-left"></i> Previous</a>
+            <a href="incident-response-framework.html" class="btn btn-secondary" style="font-size: 0.8rem;">Next Article <i class="fas fa-chevron-right"></i></a>
+        </div>
+    </div>
+</article>
+
+<footer style="padding: 50px 0; border-top: 1px solid var(--border); text-align: center;">
+    <div class="container">
+        <p style="color: var(--text-dim); font-size: 0.8rem;">&copy; 2026 NH TECHNO | <a href="../privacy.html" style="color: var(--accent);">Privacy Policy</a> | <a href="../terms.html" style="color: var(--accent);">Terms of Service</a></p>
+    </div>
+</footer>
+
+<script src="../cosmic-flow.js"></script>
+</body>
+</html>
