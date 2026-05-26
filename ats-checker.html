@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATS Resume Checker & Builder | NH TECHNO</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- PDF.js via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <!-- html2pdf.js via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        /* Custom styles for ATS Checker to extend style.css */
+        .ats-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-top: 100px;
+            margin-bottom: 50px;
+        }
+        
+        @media(min-width: 1024px) {
+            .ats-layout {
+                grid-template-columns: 350px 1fr;
+            }
+        }
+        
+        .ats-header {
+            text-align: center;
+            padding: 80px 0 40px;
+        }
+        
+        /* Drag & Drop Zone */
+        .upload-zone {
+            border: 2px dashed rgba(59, 130, 246, 0.4);
+            border-radius: 20px;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(12px);
+            padding: 60px 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin: 0 auto;
+            max-width: 700px;
+        }
+        
+        .upload-zone:hover, .upload-zone.dragover {
+            border-color: var(--accent);
+            background: rgba(56, 189, 248, 0.05);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .upload-icon {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Scanning Screen */
+        .scan-overlay {
+            display: none;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        
+        .scanner-ring {
+            width: 120px;
+            height: 120px;
+            border: 4px solid rgba(59, 130, 246, 0.1);
+            border-top: 4px solid var(--accent);
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            animation: spin 1s linear infinite, glowPulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(0, 242, 255, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(0, 242, 255, 0.6); }
+        }
+        
+        /* Score Indicator */
+        .score-circle-wrapper {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 20px;
+        }
+        
+        .score-svg {
+            transform: rotate(-90deg);
+            width: 180px;
+            height: 180px;
+        }
+        
+        .score-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.05);
+            stroke-width: 12;
+        }
+        
+        .score-fill {
+            fill: none;
+            stroke: url(#scoreGradient);
+            stroke-width: 12;
+            stroke-linecap: round;
+            stroke-dasharray: 527;
+            stroke-dashoffset: 527;
+            transition: stroke-dashoffset 1.5s cubic-bezier(0.1, 0.8, 0.2, 1);
+        }
+        
+        .score-text-val {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 0 10px rgba(0, 242, 255, 0.4);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        /* Side Navigation for form */
+        .form-nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 14px 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-dim);
+            font-weight: 500;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 10px;
+        }
+        
+        .form-nav-btn:hover, .form-nav-btn.active {
+            color: white;
+            background: rgba(59, 130, 246, 0.1);
+            border-color: var(--primary);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
+        }
+        
+        .form-nav-btn.active i {
+            color: var(--accent);
+            text-shadow: 0 0 8px var(--accent);
+        }
+        
+        /* Dashboard Container styling */
+        .ats-dashboard {
+            display: none;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        @media(min-width: 1024px) {
+            .ats-dashboard {
+                grid-template-columns: 380px 1fr;
+            }
+        }
+        
+        .form-section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        
+        .form-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Interactive Input Groups */
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: white;
+            outline: none;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(0, 242, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .row-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        /* Repeater blocks */
+        .repeater-card {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .repeater-card:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        .remove-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: #ef4444;
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: 0.2s;
+        }
+        
+        .remove-btn:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        /* Resume Preview Panel */
+        .preview-pane-wrapper {
+            background: #ffffff;
+            color: #1e293b;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow-y: auto;
+            max-height: 800px;
+            font-family: 'Times New Roman', Times, serif; /* Traditional ATS standard */
+            line-height: 1.4;
+            border: 1px solid #cbd5e1;
+        }
+        
+        /* Feedback Bullet Cards */
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .checklist-item i {
+            margin-top: 3px;
+        }
+        
+        .text-success { color: #10b981; }
+        .text-warning { color: #f59e0b; }
+        .text-error { color: #ef4444; }
+        
+        /* Resume Output PDF Template Specific Styles (Print friendly) */
+        .pdf-resume {
+            font-family: 'Arial', sans-serif;
+            color: #000000;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .pdf-name {
+            font-size: 24pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 6pt;
+            text-transform: uppercase;
+        }
+        
+        .pdf-contact {
+            text-align: center;
+            font-size: 10pt;
+            margin-bottom: 18pt;
+            color: #475569;
+            border-bottom: 1px solid #000000;
+            padding-bottom: 8pt;
+        }
+        
+        .pdf-section-title {
+            font-size: 12pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1px solid #000000;
+            margin-top: 15pt;
+            margin-bottom: 8pt;
+            padding-bottom: 2pt;
+        }
+        
+        .pdf-item-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 10.5pt;
+            margin-bottom: 2pt;
+        }
+        
+        .pdf-item-sub {
+            display: flex;
+            justify-content: space-between;
+            font-style: italic;
+            font-size: 10pt;
+            margin-bottom: 4pt;
+            color: #334155;
+        }
+        
+        .pdf-bullets {
+            margin-left: 15pt;
+            margin-bottom: 8pt;
+            font-size: 10pt;
+            padding-left: 0;
+        }
+        
+        .pdf-bullets li {
+            margin-bottom: 3pt;
+        }
+        
+        .pdf-skills-grid {
+            font-size: 10pt;
+            margin-bottom: 10pt;
+        }
+
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+    </style>
+</head>
+<body>
+
+<canvas id="cosmic-canvas"></canvas>
+
+<!-- NAVIGATION -->
+<nav class="navbar">
+    <div class="container nav-container">
+        <div class="nav-logo">
+            <i class="fas fa-terminal"></i> NH TECHNO
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="index.html#lab">Linux Lab</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="ats-checker.html" class="active">ATS Checker</a></li>
+            <li><a href="blog/index.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- MAIN CONTAINER -->
+<div class="container" style="min-height: calc(100vh - 150px); padding-top: 100px;">
+    
+    <!-- Hero / Upload Zone -->
+    <div id="uploadView">
+        <div class="ats-header">
+            <h1 style="font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: 15px;">
+                Free <span class="gradient-text">ATS Resume Evaluator</span>
+            </h1>
+            <p style="color: var(--text-dim); max-width: 600px; margin: 0 auto; font-size: 1.05rem;">
+                Drop your current resume. We'll scan it for compliance, score its compatibility, and help you restructure it to blow recruiters away.
+            </p>
+        </div>
+        
+        <div class="upload-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+            <input type="file" id="fileInput" accept=".pdf" style="display: none;">
+            <div class="upload-icon">
+                <i class="fas fa-cloud-arrow-up"></i>
+            </div>
+            <h3 style="margin-bottom: 10px;">Drag & Drop Your PDF Resume</h3>
+            <p style="color: var(--text-dim); font-size: 0.9rem; margin-bottom: 25px;">Only standard PDF formats are accepted</p>
+            <button class="btn btn-primary" style="pointer-events: none;">Browse Local Files</button>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px;">
+            <button onclick="skipToBuilder()" class="btn btn-secondary">
+                <i class="fas fa-keyboard"></i> Build Resume from Scratch
+            </button>
+        </div>
+    </div>
+    
+    <!-- Scanning / Progress View -->
+    <div id="scanView" class="scan-overlay">
+        <div class="scanner-ring"></div>
+        <h2 id="scanStatus" style="margin-bottom: 10px;">Initializing Core OCR Engine...</h2>
+        <p id="scanSub" style="color: var(--text-dim); font-size: 0.9rem;">Decoding document layers and structure.</p>
+        
+        <div class="terminal-mockup" style="max-width: 550px; margin: 40px auto 0; text-align: left;">
+            <div class="mockup-header">
+                <div class="mockup-dots"><span></span><span></span><span></span></div>
+                <div class="mockup-title">ats-parser.sh</div>
+            </div>
+            <div class="mockup-body" id="scanTerminal">
+                <p><span style="color: #00f2ff;">[SYSTEM]</span> Initiating sandbox extraction...</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Dashboard Builder View -->
+    <div id="dashboardView" class="ats-dashboard">
+        
+        <!-- Left Column: ATS Feedback & Analytics -->
+        <div style="display: flex; flex-direction: column; gap: 30px;">
+            <div class="glass-card" style="padding: 25px; border-color: rgba(59, 130, 246, 0.2);">
+                <h3 style="margin-bottom: 20px; text-align: center;">ATS Score Analysis</h3>
+                
+                <div class="score-circle-wrapper">
+                    <svg class="score-svg" viewBox="0 0 180 180">
+                        <defs>
+                            <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#3b82f6" />
+                                <stop offset="100%" stop-color="#00f2ff" />
+                            </linearGradient>
+                        </defs>
+                        <circle class="score-bg" cx="90" cy="90" r="84"></circle>
+                        <circle id="scoreProgress" class="score-fill" cx="90" cy="90" r="84"></circle>
+                    </svg>
+                    <div class="score-text-val" id="scoreVal">0%</div>
+                </div>
+                
+                <p id="scoreSummaryText" style="text-align: center; font-size: 0.9rem; color: var(--text-dim); line-height: 1.5; margin-bottom: 20px;">
+                    Parsing completed successfully. Let's optimize this document.
+                </p>
+                
+                <div style="border-top: 1px solid var(--border); padding-top: 20px;">
+                    <h4 style="margin-bottom: 15px; font-size: 0.85rem; text-transform: uppercase; color: var(--text-dim); letter-spacing: 1px;">Critical Compliance</h4>
+                    
+                    <div id="feedbackList">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Side tabs -->
+            <div class="glass-card" style="padding: 20px;">
+                <h4 style="margin-bottom: 15px; font-size: 0.85rem; text-transform: uppercase; color: var(--text-dim); letter-spacing: 1px;">Sections Navigator</h4>
+                <div id="sectionNav">
+                    <button class="form-nav-btn active" onclick="switchSection('personal')">
+                        <i class="fas fa-user"></i> Contact & Personal Info
+                    </button>
+                    <button class="form-nav-btn" onclick="switchSection('experience')">
+                        <i class="fas fa-briefcase"></i> Work Experience
+                    </button>
+                    <button class="form-nav-btn" onclick="switchSection('education')">
+                        <i class="fas fa-graduation-cap"></i> Education
+                    </button>
+                    <button class="form-nav-btn" onclick="switchSection('projects')">
+                        <i class="fas fa-code-fork"></i> Projects
+                    </button>
+                    <button class="form-nav-btn" onclick="switchSection('skills')">
+                        <i class="fas fa-gears"></i> Core Skills
+                    </button>
+                    <button class="form-nav-btn" onclick="switchSection('certifications')">
+                        <i class="fas fa-award"></i> Certifications
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Column: Form Editor & PDF Live Preview -->
+        <div style="display: flex; flex-direction: column; gap: 30px;">
+            
+            <div class="action-bar">
+                <div>
+                    <h2 id="editorTitle">Edit Personal Information</h2>
+                    <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 3px;">Fill in details, they sync instantly to the ATS-optimized structure.</p>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="downloadPDF()" class="btn btn-primary" style="padding: 12px 24px; box-shadow: 0 4px 15px rgba(0, 242, 255, 0.3); background: linear-gradient(135deg, var(--primary), var(--accent));">
+                        <i class="fas fa-download"></i> Download Optimized PDF
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Editor Card -->
+            <div class="glass-card" style="padding: 30px;">
+                <form id="resumeForm">
+                    
+                    <!-- Section: Personal Info -->
+                    <div id="sec-personal" class="form-section active">
+                        <div class="row-grid">
+                            <div class="input-group">
+                                <label>Full Name</label>
+                                <input type="text" id="p-name" class="form-control" placeholder="John Doe" oninput="syncPreview()">
+                            </div>
+                            <div class="input-group">
+                                <label>Professional Title</label>
+                                <input type="text" id="p-title" class="form-control" placeholder="Cybersecurity Engineer" oninput="syncPreview()">
+                            </div>
+                        </div>
+                        <div class="row-grid">
+                            <div class="input-group">
+                                <label>Email Address</label>
+                                <input type="email" id="p-email" class="form-control" placeholder="john.doe@email.com" oninput="syncPreview()">
+                            </div>
+                            <div class="input-group">
+                                <label>Phone Number</label>
+                                <input type="text" id="p-phone" class="form-control" placeholder="+1 234 567 8900" oninput="syncPreview()">
+                            </div>
+                        </div>
+                        <div class="row-grid">
+                            <div class="input-group">
+                                <label>Location</label>
+                                <input type="text" id="p-location" class="form-control" placeholder="New York, NY" oninput="syncPreview()">
+                            </div>
+                            <div class="input-group">
+                                <label>LinkedIn URL</label>
+                                <input type="text" id="p-linkedin" class="form-control" placeholder="linkedin.com/in/username" oninput="syncPreview()">
+                            </div>
+                        </div>
+                        <div class="row-grid">
+                            <div class="input-group">
+                                <label>GitHub URL</label>
+                                <input type="text" id="p-github" class="form-control" placeholder="github.com/username" oninput="syncPreview()">
+                            </div>
+                            <div class="input-group">
+                                <label>Portfolio Website</label>
+                                <input type="text" id="p-website" class="form-control" placeholder="portfolio.com" oninput="syncPreview()">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Section: Experience -->
+                    <div id="sec-experience" class="form-section">
+                        <div id="experienceContainer">
+                            <!-- Filled dynamically -->
+                        </div>
+                        <button type="button" class="btn btn-secondary" onclick="addExperienceCard()" style="margin-top: 10px; width: 100%;">
+                            <i class="fas fa-plus"></i> Add Work Experience
+                        </button>
+                    </div>
+                    
+                    <!-- Section: Education -->
+                    <div id="sec-education" class="form-section">
+                        <div id="educationContainer">
+                            <!-- Filled dynamically -->
+                        </div>
+                        <button type="button" class="btn btn-secondary" onclick="addEducationCard()" style="margin-top: 10px; width: 100%;">
+                            <i class="fas fa-plus"></i> Add Education History
+                        </button>
+                    </div>
+                    
+                    <!-- Section: Projects -->
+                    <div id="sec-projects" class="form-section">
+                        <div id="projectsContainer">
+                            <!-- Filled dynamically -->
+                        </div>
+                        <button type="button" class="btn btn-secondary" onclick="addProjectCard()" style="margin-top: 10px; width: 100%;">
+                            <i class="fas fa-plus"></i> Add Project
+                        </button>
+                    </div>
+                    
+                    <!-- Section: Skills -->
+                    <div id="sec-skills" class="form-section">
+                        <div class="input-group">
+                            <label>Core Technical & Soft Skills (Comma separated)</label>
+                            <textarea id="s-skills" class="form-control" rows="8" placeholder="Python, Pentesting, OWASP Top 10, Network Security, Linux Administration, Communication" oninput="syncPreview()" style="font-family: inherit; resize: vertical;"></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Section: Certifications -->
+                    <div id="sec-certifications" class="form-section">
+                        <div id="certificationsContainer">
+                            <!-- Filled dynamically -->
+                        </div>
+                        <button type="button" class="btn btn-secondary" onclick="addCertificationCard()" style="margin-top: 10px; width: 100%;">
+                            <i class="fas fa-plus"></i> Add Certification
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+            
+            <!-- Live Preview Card -->
+            <div>
+                <h3 style="margin-bottom: 15px;">ATS Standard Print Preview</h3>
+                <div class="preview-pane-wrapper">
+                    <!-- Standard Black & White ATS Resume layout for parsing -->
+                    <div id="resumePreview" class="pdf-resume">
+                        <div class="pdf-name" id="prev-name">JOHN DOE</div>
+                        <div class="pdf-contact" id="prev-contact">
+                            Cybersecurity Specialist &bull; john.doe@email.com &bull; +1 234 567 8900 &bull; New York, NY
+                        </div>
+                        
+                        <div id="prev-exp-sec">
+                            <div class="pdf-section-title">Professional Experience</div>
+                            <div id="prev-exp-list"></div>
+                        </div>
+                        
+                        <div id="prev-edu-sec">
+                            <div class="pdf-section-title">Education</div>
+                            <div id="prev-edu-list"></div>
+                        </div>
+                        
+                        <div id="prev-proj-sec">
+                            <div class="pdf-section-title">Projects</div>
+                            <div id="prev-proj-list"></div>
+                        </div>
+                        
+                        <div id="prev-skills-sec">
+                            <div class="pdf-section-title">Technical Skills</div>
+                            <div class="pdf-skills-grid" id="prev-skills-list"></div>
+                        </div>
+                        
+                        <div id="prev-cert-sec">
+                            <div class="pdf-section-title">Certifications</div>
+                            <div class="pdf-skills-grid" id="prev-cert-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+    
+</div>
+
+<!-- FOOTER -->
+<footer style="padding: 50px 0; border-top: 1px solid var(--border); text-align: center; margin-top: 80px;">
+    <div class="container">
+        <div style="margin-bottom: 20px; font-size: 1.5rem;">
+            <a href="https://github.com/Codex-Nazir" style="color: var(--text-dim); margin: 0 15px;"><i class="fab fa-github"></i></a>
+            <a href="https://youtube.com/@NHtechno" style="color: var(--text-dim); margin: 0 15px;"><i class="fab fa-youtube"></i></a>
+            <a href="https://instagram.com/khnnazir_" style="color: var(--text-dim); margin: 0 15px;"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p style="color: var(--text-dim); font-size: 0.8rem;">&copy; 2026 NH TECHNO | Built for Defenders.</p>
+        <p style="color: var(--text-dim); font-size: 0.7rem; margin-top: 10px;">
+            <a href="privacy.html" style="color: var(--accent); text-decoration: none;">Privacy Policy</a> | 
+            <a href="terms.html" style="color: var(--accent); text-decoration: none;">Terms of Service</a> | 
+            <a href="disclaimer.html" style="color: var(--accent); text-decoration: none;">Disclaimer</a>
+        </p>
+    </div>
+</footer>
+
+<script src="ats-checker.js"></script>
+<script src="cosmic-flow.js"></script>
+
+</body>
+</html>
