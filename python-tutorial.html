@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Python Tutorial | NH ACADEMY</title>
+    
+    <!-- CSS & Fonts -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Pyodide CDN for WebAssembly Python -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.26.1/full/pyodide.js"></script>
+
+    <style>
+        :root {
+            --py-blue: #3776ab;
+            --py-yellow: #ffd343;
+            --term-bg: #030712;
+            --term-green: #10b981;
+            --err-bg: rgba(239, 68, 68, 0.1);
+            --err-border: #ef4444;
+            --err-text: #fca5a5;
+            --success-bg: rgba(16, 185, 129, 0.12);
+            --success-border: #10b981;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+        }
+
+        /* NAVIGATION OVERRIDE */
+        .navbar {
+            position: relative;
+            height: 70px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            background: rgba(2, 6, 23, 0.95);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+        }
+
+        /* TUTORIAL WORKSPACE CONTAINER */
+        .tutorial-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            height: calc(100vh - 70px);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* SIDEBAR LIST OF LESSONS */
+        .sidebar {
+            background: rgba(10, 15, 30, 0.8);
+            backdrop-filter: blur(15px);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sidebar-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .progress-wrapper {
+            margin-top: 10px;
+        }
+
+        .progress-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            height: 6px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 6px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            background: linear-gradient(to right, var(--py-blue), var(--py-yellow));
+            width: 0%;
+            height: 100%;
+            transition: width 0.4s ease;
+        }
+
+        .progress-text {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .lesson-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .lesson-item {
+            padding: 14px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lesson-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .lesson-item.active {
+            background: rgba(59, 130, 246, 0.12);
+            border-left: 4px solid var(--primary);
+        }
+
+        .lesson-status-icon {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+        }
+
+        .lesson-item.completed .lesson-status-icon {
+            color: #10b981;
+        }
+
+        .lesson-title-text {
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-dim);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 210px;
+        }
+
+        .lesson-item.active .lesson-title-text {
+            color: white;
+            font-weight: 600;
+        }
+
+        .lesson-item.completed .lesson-title-text {
+            color: #e2e8f0;
+        }
+
+        /* MAIN CONTENT PANES (GRID SPLIT) */
+        .workspace {
+            display: grid;
+            grid-template-columns: 45% 55%;
+            height: 100%;
+            overflow: hidden;
+            background: rgba(2, 6, 23, 0.3);
+        }
+
+        /* LEFT PANE: THEORY */
+        .theory-pane {
+            padding: 30px;
+            overflow-y: auto;
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background: rgba(15, 23, 42, 0.25);
+            backdrop-filter: blur(10px);
+        }
+
+        .theory-header-section {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+        }
+
+        .theory-difficulty {
+            display: inline-block;
+            font-size: 9px;
+            padding: 3px 8px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .theory-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .theory-body {
+            color: #cbd5e1;
+            font-size: 0.92rem;
+            line-height: 1.65;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .theory-body code {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .theory-body ul, .theory-body ol {
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .theory-body h4 {
+            color: white;
+            font-size: 1.05rem;
+            margin-top: 15px;
+            border-left: 3px solid var(--primary);
+            padding-left: 10px;
+        }
+
+        .code-snippet-box {
+            background: #060913;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: #e2e8f0;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: pre-wrap;
+        }
+
+        .code-snippet-box:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
+        }
+
+        .code-snippet-box::after {
+            content: '💻 Click to load into workspace';
+            position: absolute;
+            bottom: 6px;
+            right: 12px;
+            font-size: 0.68rem;
+            color: var(--text-dim);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2px 8px;
+            border-radius: 4px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .code-snippet-box:hover::after {
+            opacity: 1;
+            color: var(--accent);
+        }
+
+        .success-banner {
+            background: var(--success-bg);
+            border: 1px solid var(--success-border);
+            border-radius: 12px;
+            padding: 18px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 10px;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.15);
+            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* RIGHT PANE: EDITOR & TERMINAL */
+        .editor-console-pane {
+            display: grid;
+            grid-template-rows: 60% 40%;
+            height: 100%;
+            overflow: hidden;
+            background: #020617;
+            position: relative;
+        }
+
+        /* EDITOR */
+        .editor-container {
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .editor-header {
+            background: #090d16;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            height: 45px;
+        }
+
+        .editor-title {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .editor-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .editor-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border: 1px solid var(--border);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+        }
+
+        .editor-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--text-dim);
+        }
+
+        .editor-btn.run-btn {
+            background: var(--primary);
+            border-color: var(--primary);
+            font-weight: 600;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .editor-btn.run-btn:hover {
+            background: #2563eb;
+            transform: scale(1.03);
+        }
+
+        .editor-body {
+            flex: 1;
+            display: flex;
+            background: #070b13;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .line-numbers {
+            width: 42px;
+            background: #04070d;
+            border-right: 1px solid var(--border);
+            padding: 15px 0;
+            text-align: right;
+            padding-right: 10px;
+            color: rgba(148, 163, 184, 0.4);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            line-height: 1.6;
+            user-select: none;
+            overflow-y: hidden;
+        }
+
+        #codeEditor {
+            flex: 1;
+            background: transparent;
+            color: #cbd5e1;
+            border: none;
+            outline: none;
+            padding: 15px;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.82rem;
+            line-height: 1.6;
+            resize: none;
+            overflow-y: auto;
+            white-space: pre;
+            overflow-x: auto;
+            tab-size: 4;
+            caret-color: var(--accent);
+        }
+
+        /* CONSOLE/TERMINAL */
+        .console-container {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: var(--term-bg);
+        }
+
+        .console-header {
+            background: #090d16;
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-dim);
+            height: 38px;
+        }
+
+        .console-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--term-green);
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .console-line {
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .console-error {
+            color: #f87171;
+        }
+
+        .console-system {
+            color: #38bdf8;
+        }
+
+        .console-success {
+            color: #34d399;
+            font-weight: 600;
+            background: rgba(16, 185, 129, 0.08);
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 3px solid #10b981;
+            margin-top: 5px;
+        }
+
+        .terminal-clear {
+            background: transparent;
+            border: none;
+            color: var(--text-dim);
+            font-size: 0.72rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .terminal-clear:hover {
+            color: white;
+        }
+
+        /* AI EXPLAINER CARD */
+        .ai-explainer {
+            background: rgba(217, 119, 6, 0.06);
+            border: 1px solid rgba(217, 119, 6, 0.3);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-top: 10px;
+            display: none;
+            animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 15px rgba(217, 119, 6, 0.08);
+        }
+
+        .ai-header {
+            color: #fbbf24;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .ai-section-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #f59e0b;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            margin-bottom: 3px;
+            font-weight: 700;
+        }
+
+        .ai-content {
+            font-size: 0.82rem;
+            color: #fef3c7;
+            line-height: 1.6;
+        }
+
+        .ai-content code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            color: #fbbf24;
+            font-size: 0.78rem;
+        }
+
+        /* PYODIDE LOADER OVERLAY */
+        .loader-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #020617;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .spinner {
+            width: 45px;
+            height: 45px;
+            border: 3px solid rgba(59, 130, 246, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        .loader-text {
+            margin-top: 18px;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            max-width: 250px;
+        }
+
+        /* MOBILE HEADER TAB NAVIGATION */
+        .mobile-tabs {
+            display: none;
+            background: #090d16;
+            border-bottom: 1px solid var(--border);
+            height: 45px;
+        }
+
+        .mobile-tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-dim);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            height: 100%;
+            transition: all 0.2s;
+        }
+
+        .mobile-tab-btn.active {
+            color: white;
+            border-bottom: 2px solid var(--primary);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* SCROLLBAR STYLING */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* RESPONSIVE LAYOUTS */
+        @media (max-width: 900px) {
+            .tutorial-container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none; /* Hide sidebar list on mobile, or toggle later */
+            }
+            .workspace {
+                grid-template-columns: 1fr;
+            }
+            .mobile-tabs {
+                display: flex;
+            }
+            .theory-pane, .editor-console-pane {
+                display: none;
+                height: 100%;
+            }
+            .theory-pane.active, .editor-console-pane.active {
+                display: flex;
+            }
+            .editor-console-pane.active {
+                display: grid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="cosmic-canvas"></canvas>
+
+<!-- NAVIGATION BAR -->
+<nav class="navbar">
+    <div class="container nav-container">
+        <div class="nav-logo" style="font-size: 1.25rem;">
+            <i class="fab fa-python" style="color: var(--py-yellow);"></i> PYTHON PATHWAY
+        </div>
+        <a href="learn.html" class="back-btn"><i class="fas fa-arrow-left"></i> Academy Dashboard</a>
+    </div>
+</nav>
+
+<!-- MAIN CONTAINER -->
+<div class="tutorial-container">
+    
+    <!-- SIDEBAR NAVIGATION -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title"><i class="fas fa-terminal"></i> Lessons</div>
+            <div class="progress-wrapper">
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div class="progress-text">
+                    <span>Progress</span>
+                    <span id="progressText">0% Complete</span>
+                </div>
+            </div>
+        </div>
+        <ul class="lesson-list" id="lessonList">
+            <!-- Dynamic Injection -->
+        </ul>
+    </div>
+
+    <!-- MOBILE TAB SYSTEM -->
+    <div class="mobile-tabs">
+        <button class="mobile-tab-btn active" id="tabBtnLearn" onclick="switchMobileTab('learn')">
+            <i class="fas fa-book-open"></i> Learn
+        </button>
+        <button class="mobile-tab-btn" id="tabBtnPractice" onclick="switchMobileTab('practice')">
+            <i class="fas fa-code"></i> Practice
+        </button>
+    </div>
+
+    <!-- SPLIT-PANE WORKSPACE -->
+    <div class="workspace">
+        
+        <!-- LEFT PANEL: THEORY -->
+        <div class="theory-pane active" id="theoryPane">
+            <div class="theory-header-section">
+                <span class="theory-difficulty" id="theoryDifficulty">Beginner</span>
+                <h2 class="theory-title" id="theoryTitle">Loading Lesson...</h2>
+            </div>
+            
+            <!-- Dynamic Success Banner -->
+            <div class="success-banner" id="successBanner">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <i class="fas fa-check-circle" style="color: #10b981; font-size:1.3rem;"></i>
+                    <div>
+                        <h4 style="margin:0; color:white; font-size:0.88rem;">Challenge Completed!</h4>
+                        <p style="margin:2px 0 0 0; font-size:0.78rem; color:var(--text-dim);">Excellent script, Defender. You solved this module!</p>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="loadNextLesson()" style="padding: 8px 16px; font-size: 0.75rem; border-radius: 6px; box-shadow:none; margin:0;">Next Lesson <i class="fas fa-arrow-right"></i></button>
+            </div>
+
+            <div class="theory-body" id="theoryBody">
+                <!-- Theory Text Injected Here -->
+            </div>
+        </div>
+
+        <!-- RIGHT PANEL: WORKSPACE -->
+        <div class="editor-console-pane" id="workspacePane">
+            
+            <!-- Pyodide Loader Overlay -->
+            <div class="loader-overlay" id="pyodideLoader">
+                <div class="spinner"></div>
+                <div class="loader-text" id="loaderText">Initializing secure Python WASM Environment...</div>
+            </div>
+
+            <!-- CODE EDITOR -->
+            <div class="editor-container">
+                <div class="editor-header">
+                    <span class="editor-title"><i class="fab fa-python" style="color:#ffd343;"></i> main.py</span>
+                    <div class="editor-actions">
+                        <button class="editor-btn" onclick="resetDefaultCode()"><i class="fas fa-undo"></i> Reset</button>
+                        <button class="editor-btn run-btn" onclick="runPythonCode()"><i class="fas fa-play"></i> Run Code</button>
+                    </div>
+                </div>
+                <div class="editor-body">
+                    <div class="line-numbers" id="lineNumbers">1</div>
+                    <textarea id="codeEditor" spellcheck="false" onscroll="syncScroll()" oninput="handleEditorInput()"></textarea>
+                </div>
+            </div>
+
+            <!-- CONSOLE OUTPUT -->
+            <div class="console-container">
+                <div class="console-header">
+                    <span><i class="fas fa-terminal"></i> Console Output</span>
+                    <button class="terminal-clear" onclick="clearConsole()"><i class="fas fa-trash"></i> Clear</button>
+                </div>
+                <div class="console-body" id="consoleOutput">
+                    <span class="console-system">WASM sandbox loading console output stream...</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- FIREBASE AUTH CHECK & LOGOUT -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyBp3NKuTk8i6B5dISNgK4cb79-6M3MrIWk",
+        authDomain: "nh-techno.firebaseapp.com",
+        projectId: "nh-techno",
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Kicks unauthorized users back to the landing page
+    onAuthStateChanged(auth, (user) => {
+        if (!user || !user.emailVerified) {
+            window.location.href = "index.html";
+        }
+    });
+</script>
+
+<!-- COSMIC CANVAS BACKGROUND ANIMATION -->
+<script src="cosmic-flow.js"></script>
+
+<!-- LESSONS CURRICULUM & ENGINE LOGIC -->
+<script>
+    // 12 Comprehensive Lessons
+    const lessons = [
+        {
+            id: 1,
+            title: "1. Hello World & Printing",
+            difficulty: "Beginner",
+            summary: "Learn how to output text to the console using the print() function.",
+            defaultCode: `# Python Lesson 1: Hello World & Printing\n# Print functions display textual messages in the terminal.\n\n# CHALLENGE: Output the text exactly: Hello, World!\n# (Replace the line below with your solution)\nprint("Modify this text to match exactly: Hello, World!")\n`,
+            theory: `
+                <p>Welcome to <strong>NH ACADEMY Python Training</strong>. Python is one of the most powerful and readable programming languages on Earth, widely used for automation, artificial intelligence, and cybersecurity scripting.</p>
+                <p>The first step in any language is displaying output to the user. In Python, this is achieved using the built-in <code>print()</code> function.</p>
+                
+                <h4>Syntax Structure</h4>
+                <p>To print a string (text), wrap the characters in quotation marks (either single quotes <code>'</code> or double quotes <code>"</code>):</p>
+                <div class="code-snippet-box" onclick="copySnippetToEditor('print(\"Hello, World!\")')">print("Hello, World!")</div>
+                
+                <h4>Keys to Remember</h4>
+                <ul>
+                    <li>Python is case-sensitive: <code>print()</code> is correct, while <code>Print()</code> or <code>PRINT()</code> will cause a <strong>NameError</strong>.</li>
+                    <li>Text strings must be closed with matching quotation marks.</li>
+                </ul>
+                
+                <h4>Challenge Instructions</h4>
+                <p>Edit the code in the workspace and output the exact string: <code>Hello, World!</code></p>
+            `,
+            validatorType: "output",
+            expectedOutput: "Hello, World!"
+        },
+        {
+            id: 2,
+            title: "2. Variables & Core Types",
+            difficulty: "Beginner",
+            summary: "Learn how to store variables and understand numeric, text, and boolean data types.",
+            defaultCode: `# Python Lesson 2: Variables & Data Types\n# Variables are memory slots initialized when assigned a value.\n\n# CHALLENGE:\n# 1. Create a variable named 'age' and set it to the integer 25\n# 2. Create a variable named 'name' and set it to the string "Nazir"\n# 3. Create a variable named 'is_student' and set it to boolean True\n\n# Write variables below:\n`,
+            theory: `
+                <p>Variables are named boxes in memory that store data. In Python, you do not declare variable types explicitly; Python automatically figures it out when you assign a value using the assignment operator (<code>=</code>).</p>
+                
+                <h4>Core Data Types</h4>
+                <ul>
+                    <li><strong>Integer (int)</strong>: Whole numbers, positive or negative (e.g. <code>x = 42</code>)</li>
+                    <li><strong>Float (float)</strong>: Real numbers with decimal points (e.g. <code>y = 3.14</code>)</li>
+                    <li><strong>String (str)</strong>: Text values wrapped in quotes (e.g. <code>msg = "Secured"</code>)</li>
+                    <li><strong>Boolean (bool)</strong>: Logical flags. Must be either capitalized <code>True</code> or <code>False</code>.</li>
+                </ul>
+                
+                <h4>Assignment Example</h4>
+                <div class="code-snippet-box" onclick="copySnippetToEditor('score = 99\\nis_active = True\\nalias = \"Red_Sec\"\\nprint(alias, score)')">score = 99
+is_active = True
+alias = "Red_Sec"
+print(alias, score)</div>
+
+                <h4>Challenge Instructions</h4>
+                <p>In the editor, define three variables: <code>age</code> as number <code>25</code>, <code>name</code> as string <code>"Nazir"</code>, and <code>is_student</code> as boolean <code>True</code>.</p>
+            `,
+            validatorType: "python",
+            validatorScript: "'age' in globals() and isinstance(globals()['age'], int) and globals()['age'] == 25 and 'name' in globals() and isinstance(globals()['name'], str) and globals()['name'] == 'Nazir' and 'is_student' in globals() and globals()['is_student'] == True"
+        },
+        {
+            id: 3,
+            title: "3. Math & Arithmetic",
+            difficulty: "Beginner",
+            summary: "Perform calculations using addition, subtraction, division, modulo, and powers.",
+            defaultCode: `# Python Lesson 3: Arithmetic & Operations\n# Python supports standard math calculations out of the box.\n\n# CHALLENGE:\n# Create a variable named 'result' containing the calculation of:\n# (10 + 5) multiplied by 2, and then subtract 7.\n# Note: Use standard parentheses to override mathematical precedence.\n\nresult = \nprint("Result is:", result)\n`,
+            theory: `
+                <p>Python can perform calculations instantly. Here are the basic operator symbols:</p>
+                <ul>
+                    <li><code>+</code> (Addition), <code>-</code> (Subtraction), <code>*</code> (Multiplication)</li>
+                    <li><code>/</code> (Division) - Always returns a float value (e.g. <code>4 / 2</code> gives <code>2.0</code>).</li>
+                    <li><code>//</code> (Floor Division) - Discards the remainder, returning an integer (e.g. <code>5 // 2</code> is <code>2</code>).</li>
+                    <li><code>%</code> (Modulo) - Returns the remainder of division (e.g. <code>5 % 2</code> is <code>1</code>).</li>
+                    <li><code>**</code> (Exponent/Power) - Raises a number to a power (e.g. <code>2 ** 3</code> is <code>8</code>).</li>
+                </ul>
+                
+                <h4>Order of Precedence</h4>
+                <p>Python follows math operator precedence rules (PEMDAS). You can wrap statements in parentheses to force order of calculations:</p>
+                <div class="code-snippet-box" onclick="copySnippetToEditor('val = (2 + 3) * 5\\nprint(val)')">val = (2 + 3) * 5
+print(val) # prints 25</div>
+
+                <h4>Challenge Instructions</h4>
+                <p>Assign the formula for: <strong>(10 + 5) * 2 - 7</strong> to the variable <code>result</code>. Run the code and verify the output is <code>23</code>.</p>
+            `,
+            validatorType: "python",
+            validatorScript: "'result' in globals() and globals()['result'] == 23"
+        },
+        {
+            id: 4,
+            title: "4. Working with Strings",
+            difficulty: "Beginner",
+            summary: "Concatenate strings, find their length, and master f-strings for output formatting.",
+            defaultCode: `# Python Lesson 4: Formatting Strings\nfirst_name = "Nazir"\nlast_name = "Hussain"\n\n# CHALLENGE:\n# Use a modern Python f-string to build a message exactly as:\n# "Welcome Defender, Nazir Hussain!"\n# Store this exact string in a variable named 'welcome_message'.\n\nwelcome_message = \nprint(welcome_message)\n`,
+            theory: `
+                <p>Strings are text sequences. Python has powerful mechanisms to manipulate text:</p>
+                
+                <h4>Concatenation</h4>
+                <p>You can join strings using the <code>+</code> sign: <code>full = "A" + "B"</code> creates <code>"AB"</code>.</p>
+                
+                <h4>String Length</h4>
+                <p>The <code>len(string)</code> function returns the count of characters inside a string.</p>
+                
+                <h4>Modern f-Strings (Formatted Strings)</h4>
+                <p>Instead of manual joins, you can insert variables directly inside string templates by prefixing the string with <code>f</code> and wrapping variables inside curly braces <code>{}</code>. This is clean and highly readable!</p>
+                <div class="code-snippet-box" onclick="copySnippetToEditor('ip = \"192.168.1.10\"\\nstatus = f\"Target host: {ip} is currently active.\"\\nprint(status)')">ip = "192.168.1.10"
+status = f"Target host: {ip} is currently active."
+print(status)</div>
+
+                <h4>Challenge Instructions</h4>
+                <p>Use the string variables <code>first_name</code> and <code>last_name</code> inside an f-string to create the statement <code>Welcome Defender, Nazir Hussain!</code> and assign it to <code>welcome_message</code>.</p>
+            `,
+            validatorType: "python",
+            validatorScript: "'welcome_message' in globals() and globals()['welcome_message'] == 'Welcome Defender, Nazir Hussain!'"
+        },
+        {
+            id: 5,
+            title: "5. Getting User Input",
+            difficulty: "Beginner",
+            summary: "Capture interactive user keyboard input and handle data conversions (type casting).",
+            defaultCode: `# Python Lesson 5: Interactive user input\n\n# CHALLENGE:\n# Ask the user for a number using input(), convert it to an integer using int(),\n# and store the doubled value (number * 2) in a variable named 'doubled_value'.\n# Hint: prompt the input with: "Enter a number: "\n\nuser_input = input("Enter a number: ")\n# Perform casting and calculate doubled_value below:\n`,
+            theory: `
+                <p>To acquire keyboard input from a user, Python provides the <code>input(prompt)</code> function. When run, it prints the prompt and waits for the user input.</p>
+                
+                <p>⚠️ <strong>CRITICAL WARNING:</strong> The <code>input()</code> function <em>always</em> yields a value of type <strong>String</strong> (text). Even if the user enters a number, it will be treated as text (e.g. <code>"5"</code> instead of <code>5</code>).</p>
+                
+                <h4>Type Casting</h4>
+                <p>To perform mathematical calculations on values fetched from input, you must cast (convert) them into integers or floats first using <code>int()</code> or <code>float()</code>:</p>
+                <div class="code-snippet-box" onclick="copySnippetToEditor('port_str = input(\"Enter target port: \")\\nport = int(port_str)\\nprint(\"Port integer type:\", type(port))')">port_str = input("Enter target port: ")
+port = int(port_str)
+print("Port integer type:", type(port))</div>
+
+                <h4>Challenge Instructions</h4>
+                <p>Read the input from the prompt, convert the string to a numeric integer, and assign its double (<code>* 2</code>) to a variable called <code>doubled_value</code>.</p>
+            `,
+            validatorType: "python",
+            validatorScript: "'doubled_value' in globals() and isinstance(globals()['doubled_value'], int)"
+        },
+        {
+            id: 6,
+            title: "6. Conditionals (if-else)",
+            difficulty: "Beginner",
+            summary: "Add logical decision-making pathways into your scripts with comparison operators.",
+            defaultCode: `# Python Lesson 6: Conditional Statements\n# Use if, elif, and else to branch logical flows.\n\nscore = 85\n\n# CHALLENGE:\n# Write an if-elif-else block checking the 'score' variable:\n# - If score is 90 or above, print: "Grade: A"\n# - If score is 80 or above (but less than 90), print: "Grade: B"\n# - Otherwise, print: "Grade: C"\n\n# Write decision logic below:\n`,
+            theory: `
+                <p>Control flow allows scripts to make decisions. Branching is structured via <code>if</code>, <code>elif</code> (else-if), and <code>else</code> keywords.</p>
+                
+                <h4>Formatting Guidelines</h4>
+                <ol>
+                    <li>Condition lines <strong>must</strong> terminate with a colon (<code>:</code>).</li>
+                    <li>Nested blocks containing instructions for that condition <strong>must</strong> be indented (typically 4 spaces).</li>
+                </ol>
+                
+                <h4>Logical Comparison Rules</h4>
+                <ul>
+                    <li><code>==</code> (Equals), <code>!=</code> (Not equal)</li>
+                    <li><code>&gt;</code> (Greater than), <code>&lt;</code> (Less than)</li>
+                    <li>Combine conditions with <code>and</code>, <code>or</code>, <code>not</code>.</li>
+                </ul>
+                <div class="code-snippet-box" onclick="copySnippetToEditor('status = \"ONLINE\"\\nips = 5\\nif status == \"ONLINE\" and ips &gt; 2:\\n    print(\"Network Healthy\")\\nelse:\\n    print(\"Scan Required\")')">status = "ONLINE"
+ips = 5
+if status == "ONLINE" and ips > 2:
+    print("Network Healthy")
+else:
+    print("Scan Required")</div>
+
+                <h4>Challenge Instructions</h4>
+                <p>Create the conditional structures to evaluate the <code>score</code> variable and output the correct grade text (<code>Grade: A</code>, <code>Grade: B</code>, or <code>Grade: C</code>) based on the criteria.</p>
+            `,
+            validatorType: "output",
+            expectedOutput: "Grade: B"
+        },
+        {
+            id: 7,
+            title: "7. Loops & Iterations",
+            difficulty: "Intermediate",
+            summary: "Automate repetitive actions using while loops and indexed for loops.",
+            defaultCode: `# Python Lesson 7: Iteration and Loops\n# Automate blocks repeatedly.\n\n# CHALLENGE:\n# Write a for loop that loops through range(1, 6) (which contains numbers 1 to 5).\n# Sum all these numbers together and store the final sum in a variable named 'total_sum'.\n\ntotal_sum = 0\n# Write loop here:\n`,
+            theory: `
+                <p>Loops are loops of commands that run iteratively. Python has two primary loop mechanisms:</p>
+                
+                <h4>1. While Loop</h4>
+                <p>Runs as long as a boolean conditional remains <code>True</code>:</p>
+                <div class="code-snippet-box" onclick="copySnippetToEditor('i = 1\\nwhile i &lt;= 3:\\n    print(i)\\n    i += 1')">i = 1
+while i <= 3:
+    print(i)
+    i += 1</div>
+
+                <h4>2. For Loop</h4>
+                <p>Iterates over a sequence (such as a string, list, or generated numbers range). We use the <code>range()</code> function to generate bounds:</p>
+                <div class="code-snippet-box" onclick="copySnippetToEditor('for index in range(2, 5):\\n    print(\"Index:\", index)')">for index in range(2, 5):
+    print("Index:", index) # Prints index 2, 3, 4</div>
+
+                <h4>Challenge Instructions</h4>
+                <p>Set up a <code>for</code> loop to iterate numbers <code>1</code> through <code>5</code>, accumulating them into <code>total_sum</code>. (The final answer should evaluate to 15).</p>
+            `,
+            validatorType: "python",
+            validatorScript: "'total_sum' in globals() and globals()['total_sum'] == 15"
+        },
+        {
+            id: 8,
+            title: "8. Functions & Scope",
+            difficulty: "Intermediate",
+            summary: "Modularize code into functions with parameters, return statements, and local scopes.",
+            defaultCode: `# Python Lesson 8: Functions\n# Reuse and structuralize code tasks using the 'def' keyword.\n\n# CHALLENGE:\n# Define a function named 'is_even' that takes a single variable parameter (e.g. 'num').\n# Inside, return True if the number is even, and return False if it is odd.\n# Note: An even number has a remainder of 0 when divided by 2 (num % 2 == 0).\n\n# Write your function below:\n`,
+            theory: `
+                <p>A function is a reusable blocks of scripts that executes tasks only when called. Functions prevent writing redundant blocks.</p>
+                
+                <h4>Function Anatomy</h4>
+                <ul>
+                    <li>Constructed using the <code>def</code> keyword.</li>
+                    <li>Accepts optional inputs (parameters).</li>
+                    <li>Transmits outputs back using the <code>return</code> keyword. If no return is declared, the function outputs <code>None</code>.</li>
+                </ul>
+                <div class="code-snippet-box" onclick="copySnippetToEditor('def calculate_kb(bytes_val):\\n    kb = bytes_val / 1024\\n    return kb\\n\\nresult = calculate_kb(2048)\\nprint(result) # Output: 2.0')">def calculate_kb(bytes_val):
+    kb = bytes_val / 1024
+    return kb
+
+result = calculate_kb(2048)
+print(result) # Output: 2.0</div>
+
+                <h4>Challenge Instructions</h4>
+                <p>Create a function named <code>is_even</code> which takes one parameter, executes the modulo evaluation, and <strong>returns</strong> <code>True</code> or <code>False</code>.</p>
+            `,
+            validatorType: "python",
+            validatorScript: "'is_even' in globals() and callable(globals()['is_even']) and globals()['is_even'](4) == True and globals()['is_even'](7) == False"
+        },
+        {
+            id: 9,
+            title: "9. Lists & Sequences",
+            difficulty: "Intermediate",
+            summary: "Manage sequential datasets, access items via indexes, and alter list properties.",
+            defaultCode: `# Python Lesson 9: Lists\n# Lists store ordered, modifiable sequences of data items.\n\n# CHALLENGE:\n# 1. Create a list named 'skills' containing three strings: "Python", "Linux", "SQL"\n# 2. Append the string "Cybersecurity" to the list using the .append() method.\n\n# Write variables below:\n`,
+            theory: `
+                <p>Lists are used to store multiple items in a single variable. They are ordered, modifiable (mutable), and elements can be accessed using zero-based index numbers.</p>
+                
+                <h4>Standard Operations</h4>
+                <ul>
+                    <li><strong>Creation:</strong> <code>fruits = ["apple", "banana"]</code></li>
+                    <li><strong>Indexing:</strong> <code>fruits[0]</code> accesses the first item (<code>"apple"</code>).</li>
+                    <li><strong>Mutating:</strong> <code>fruits[1] = "cherry"</code> replaces banana.</li>
+                    <li><strong>Appending:</strong> <code>fruits.append("orange")</code> adds an item to the end.</li>
+                    <li><strong>Length:</strong> <code>len(fruits)</code> returns list item count.</li>
+                </ul>
+                <div class="code-snippet-box" onclick="copySnippetToEditor('ports = [22, 80]\\nports.append(443)\\nprint(\"Port List:\", ports)\\nprint(\"Size:\", len(ports))')">ports = [22, 80]
+ports.append(443)
+print("Port List:", ports)
+print("Size:", len(ports))</div>
+
+                <h4>Challenge Instructions</h4>
+                <p>Define a list named <code>skills</code> with the initial items, and then call <code>.append()</code> to add <code>"Cybersecurity"</code> to the list.</p>
+            `,
+            validatorType: "python",
+            validatorScript: "'skills' in globals() and isinstance(globals()['skills'], list) and len(globals()['skills']) == 4 and globals()['skills'] == ['Python', 'Linux', 'SQL', 'Cybersecurity']"
+        },
+        {
+            id: 10,
+            title: "10. Dictionaries & Sets",
+            difficulty: "Intermediate",
+            summary: "Structure records as key-value pairings and handle unique items sets.",
+            defaultCode: `# Python Lesson 10: Dictionaries\n# Store information in labeled key-value mappings.\n\n# CHALLENGE:\n# 1. Create a dictionary named 'hacker' containing keys:\n#    - 'alias' with value "Zero"\n#    - 'status' with value "Offline"\n# 2. Change the key 'status' value to "Online".\n\n# Write code below:\n`,
+            theory: `
+                <p>For more structured data representation, Python provides dictionaries and sets.</p>
+                
+                <h4>Dictionaries (Key-Value)</h4>
+                <p>Dictionaries store associations. Each item contains a key and a corresponding value. Keys must be unique.</p>
+                <div class="code-snippet-box" onclick="copySnippetToEditor('target = {\\n    \"ip\": \"10.0.0.5\",\\n    \"vuln\": True\\n}\\nprint(target[\"ip\"]) # Get value\\ntarget[\"vuln\"] = False # Modify value')">target = {
+    "ip": "10.0.0.5",
+    "vuln": True
+}
+print(target["ip"]) # Get value
+target["vuln"] = False # Modify value</div>
+
+                <h4>Sets (Unique lists)</h4>
+                <p>Sets are collections of unordered elements containing no duplicates. Ideal for filtering uniqueness: <code>unique_nums = {1, 2, 2, 3}</code> yields <code>{1, 2, 3}</code>.</p>
+
+                <h4>Challenge Instructions</h4>
+                <p>Define the <code>hacker</code> dictionary and then toggle its <code>status</code> parameter from <code>Offline</code> to <code>Online</code>.</p>
+            `,
+            validatorType: "python",
+            validatorScript: "'hacker' in globals() and isinstance(globals()['hacker'], dict) and globals()['hacker'].get('alias') == 'Zero' and globals()['hacker'].get('status') == 'Online'"
+        },
+        {
+            id: 11,
+            title: "11. Error Handling",
+            difficulty: "Advanced",
+            summary: "Use try-except blocks to catch runtime exceptions and prevent code crashes.",
+            defaultCode: `# Python Lesson 11: Error Handling\n# Intercept exceptions before they crash your script.\n\n# CHALLENGE:\n# Put the conversion block inside a try-except structure.\n# Convert "hacker" using int() (which raises a ValueError).\n# Catch ValueError and print: "Could not convert value to integer."\n\n# Write exception block below:\n`,
+            theory: `
+                <p>When bad syntax or unexpected actions occur, Python interrupts programs and raises exceptions. If uncaught, scripts crash.</p>
+                
+                <h4>Try-Except Blocks</h4>
+                <p>You can safeguard risky statements using <code>try</code> and <code>except</code> keywords:</p>
+                <ul>
+                    <li><code>try</code>: Contains the target actions we want to monitor.</li>
+                    <li><code>except</code>: Contains instructions on how to handle the error if it triggers.</li>
+                </ul>
+                <div class="code-snippet-box" onclick="copySnippetToEditor('try:\\n    result = 10 / 0\\nexcept ZeroDivisionError:\\n    print(\"Math Error: Cannot divide by zero!\")')">try:
+    result = 10 / 0
+except ZeroDivisionError:
+    print("Math Error: Cannot divide by zero!")</div>
+
+                <h4>Challenge Instructions</h4>
+                <p>Write a try-except structure that tries to parse the integer value of <code>"hacker"</code> (e.g. <code>int("hacker")</code>). Catch the <code>ValueError</code> exception and print the required failure message to the terminal.</p>
+            `,
+            validatorType: "output",
+            expectedOutput: "Could not convert value to integer."
+        },
+        {
+            id: 12,
+            title: "12. Classes & OOP",
+            difficulty: "Advanced",
+            summary: "Dive into Object-Oriented Programming (OOP) by building classes, methods, and instantiating objects.",
+            defaultCode: `# Python Lesson 12: Object-Oriented Programming\n# Classes act as structural blueprint objects.\n\n# CHALLENGE:\n# 1. Create a class named 'Hacker' with a constructor __init__ accepting self, alias, and level.\n#    Save alias and level as instance properties: self.alias and self.level.\n# 2. Add a method in the class named 'hack' (which takes only 'self') and returns:\n#    f"{self.alias} has initiated exploit. Level: {self.level}"\n# 3. Instantiate an instance of Hacker with alias="Sentinel" and level=85. Save it to 'agent'.\n\n# Write class definitions below:\n`,
+            theory: `
+                <p>Python is an Object-Oriented language. Classes serve as blueprints for objects, storing variables (attributes) and functions (methods) together.</p>
+                
+                <h4>Basic Anatomy</h4>
+                <ul>
+                    <li><code>__init__()</code> is the constructor. It initializes attributes when a new instance is created.</li>
+                    <li><code>self</code> represents the specific object instance and must be passed as the first parameter to methods.</li>
+                </ul>
+                <div class="code-snippet-box" onclick="copySnippetToEditor('class Tool:\\n    def __init__(self, name):\\n        self.name = name\\n    def run(self):\\n        return f\"Running {self.name}\"\\n\\nmy_tool = Tool(\"PortScanner\")\\nprint(my_tool.run())')">class Tool:
+    def __init__(self, name):
+        self.name = name
+    def run(self):
+        return f"Running {self.name}"
+
+my_tool = Tool("PortScanner")
+print(my_tool.run())</div>
+
+                <h4>Challenge Instructions</h4>
+                <p>Implement the <code>Hacker</code> class blueprint, constructor variables, and the <code>hack()</code> method. Instantiate it as requested to complete the final challenge.</p>
+            `,
+            validatorType: "python",
+            validatorScript: "'Hacker' in globals() and 'agent' in globals() and hasattr(globals()['Hacker'], 'hack') and globals()['agent'].hack() == 'Sentinel has initiated exploit. Level: 85'"
+        }
+    ];
+
+    let currentLessonIndex = 0;
+    let completedLessons = JSON.parse(localStorage.getItem('completed_python_lessons') || '[]');
+
+    // Editor reference sync scroll
+    const codeEditor = document.getElementById('codeEditor');
+    const lineNumbers = document.getElementById('lineNumbers');
+
+    function syncScroll() {
+        lineNumbers.scrollTop = codeEditor.scrollTop;
+    }
+
+    function handleEditorInput() {
+        updateLineNumbers();
+        syncScroll();
+    }
+
+    function updateLineNumbers() {
+        const lines = codeEditor.value.split('\n');
+        let numHTML = '';
+        for (let i = 1; i <= lines.length; i++) {
+            numHTML += i + '<br>';
+        }
+        lineNumbers.innerHTML = numHTML;
+    }
+
+    // Toggle Mobile Tabs
+    function switchMobileTab(tab) {
+        const learnBtn = document.getElementById('tabBtnLearn');
+        const practiceBtn = document.getElementById('tabBtnPractice');
+        const theoryPane = document.getElementById('theoryPane');
+        const workspacePane = document.getElementById('workspacePane');
+
+        if (tab === 'learn') {
+            learnBtn.classList.add('active');
+            practiceBtn.classList.remove('active');
+            theoryPane.classList.add('active');
+            workspacePane.classList.remove('active');
+        } else {
+            learnBtn.classList.remove('active');
+            practiceBtn.classList.add('active');
+            theoryPane.classList.remove('active');
+            workspacePane.classList.add('active');
+        }
+    }
+
+    // Load Lessons List Sidebar
+    function buildLessonList() {
+        const list = document.getElementById('lessonList');
+        list.innerHTML = "";
+        lessons.forEach((lesson, index) => {
+            const li = document.createElement('li');
+            li.id = `lesson-item-${lesson.id}`;
+            li.className = 'lesson-item';
+            if (index === currentLessonIndex) li.classList.add('active');
+            
+            const isCompleted = completedLessons.includes(lesson.id);
+            if (isCompleted) li.classList.add('completed');
+
+            const iconClass = isCompleted ? 'fas fa-check-circle' : 'far fa-circle';
+            
+            li.innerHTML = `
+                <i class="lesson-status-icon ${iconClass}"></i>
+                <div class="lesson-title-text">${lesson.title}</div>
+            `;
+            
+            li.onclick = () => {
+                selectLesson(index);
+                // On mobile, auto slide tab to Learn details
+                if (window.innerWidth <= 900) {
+                    switchMobileTab('learn');
+                }
+            };
+            list.appendChild(li);
+        });
+        updateProgress();
+    }
+
+    // Select specific lesson
+    function selectLesson(index) {
+        // Remove active class
+        const currentActive = document.querySelector('.lesson-item.active');
+        if (currentActive) currentActive.classList.remove('active');
+
+        currentLessonIndex = index;
+        const lesson = lessons[index];
+
+        // Apply active class to new lesson item
+        const newItem = document.getElementById(`lesson-item-${lesson.id}`);
+        if (newItem) newItem.classList.add('active');
+
+        // Load Lesson Details
+        document.getElementById('theoryDifficulty').textContent = lesson.difficulty;
+        document.getElementById('theoryDifficulty').className = 'theory-difficulty ' + lesson.difficulty.toLowerCase();
+        
+        // Color difficulties
+        const diffSpan = document.getElementById('theoryDifficulty');
+        if (lesson.difficulty === 'Beginner') {
+            diffSpan.style.background = 'rgba(34, 197, 94, 0.2)';
+            diffSpan.style.color = '#4ade80';
+        } else if (lesson.difficulty === 'Intermediate') {
+            diffSpan.style.background = 'rgba(245, 158, 11, 0.2)';
+            diffSpan.style.color = '#fbbf24';
+        } else {
+            diffSpan.style.background = 'rgba(239, 68, 68, 0.2)';
+            diffSpan.style.color = '#f87171';
+        }
+
+        document.getElementById('theoryTitle').textContent = lesson.title;
+        document.getElementById('theoryBody').innerHTML = lesson.theory;
+        
+        // Hide success banner
+        document.getElementById('successBanner').style.display = 'none';
+
+        // Load Default Code
+        const savedCode = localStorage.getItem(`python_code_lesson_${lesson.id}`);
+        codeEditor.value = savedCode ? savedCode : lesson.defaultCode;
+        
+        updateLineNumbers();
+        
+        // Clear workspace outputs
+        document.getElementById('aiExplainer').style.display = 'none';
+    }
+
+    // Copy theory code snippets directly to Workspace code editor
+    function copySnippetToEditor(code) {
+        codeEditor.value = code;
+        updateLineNumbers();
+        // Glow effect feedback
+        codeEditor.style.boxShadow = "inset 0 0 10px rgba(0, 242, 255, 0.3)";
+        setTimeout(() => {
+            codeEditor.style.boxShadow = "none";
+        }, 500);
+        
+        // Switch view to Practice if on mobile
+        if (window.innerWidth <= 900) {
+            switchMobileTab('practice');
+        }
+    }
+
+    // Reset default template code
+    function resetDefaultCode() {
+        if (confirm("Are you sure you want to reset this lesson's editor workspace to its template default?")) {
+            const lesson = lessons[currentLessonIndex];
+            codeEditor.value = lesson.defaultCode;
+            localStorage.removeItem(`python_code_lesson_${lesson.id}`);
+            updateLineNumbers();
+            clearConsole();
+        }
+    }
+
+    // Save code to local storage as user types
+    codeEditor.addEventListener('input', () => {
+        const lesson = lessons[currentLessonIndex];
+        localStorage.setItem(`python_code_lesson_${lesson.id}`, codeEditor.value);
+    });
+
+    // Handle Tab key insertion inside custom textarea editor
+    codeEditor.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+            e.preventDefault();
+            const start = codeEditor.selectionStart;
+            const end = codeEditor.selectionEnd;
+            // set textarea value to: text before caret + tab + text after caret
+            codeEditor.value = codeEditor.value.substring(0, start) + "    " + codeEditor.value.substring(end);
+            // put caret in correct position
+            codeEditor.selectionStart = codeEditor.selectionEnd = start + 4;
+            updateLineNumbers();
+        }
+    });
+
+    // Update Progress
+    function updateProgress() {
+        const total = lessons.length;
+        const completed = completedLessons.length;
+        const percentage = Math.round((completed / total) * 100);
+        document.getElementById('progressBar').style.width = percentage + "%";
+        document.getElementById('progressText').innerHTML = `<span>Progress</span><span>${percentage}% Complete</span>`;
+    }
+
+    // Mark completed lesson
+    function markLessonComplete(id) {
+        if (!completedLessons.includes(id)) {
+            completedLessons.push(id);
+            localStorage.setItem('completed_python_lessons', JSON.stringify(completedLessons));
+            buildLessonList();
+        }
+        document.getElementById('successBanner').style.display = 'flex';
+        
+        // Dynamic console logging feedback
+        appendConsoleLine("----------------------------------------------", "system");
+        appendConsoleLine("[SYSTEM] CHALLENGE CRITERIA MET SUCCESSFULLY!", "success");
+        appendConsoleLine("----------------------------------------------", "system");
+    }
+
+    // Next Lesson
+    function loadNextLesson() {
+        if (currentLessonIndex < lessons.length - 1) {
+            selectLesson(currentLessonIndex + 1);
+            document.getElementById('successBanner').style.display = 'none';
+        } else {
+            alert("🌟 Excellent work, Defender! You have fully completed all 12 modules in the Python Pathway. Deploy your skills in the Linux Lab!");
+        }
+    }
+
+    // Console Streams
+    let terminalOutputBuffer = "";
+
+    function appendConsoleLine(text, type = "") {
+        const consoleEl = document.getElementById('consoleOutput');
+        const span = document.createElement('span');
+        span.className = 'console-line';
+        if (type) span.classList.add('console-' + type);
+        span.textContent = text;
+        consoleEl.appendChild(span);
+        consoleEl.scrollTop = consoleEl.scrollHeight;
+
+        terminalOutputBuffer += text + "\n";
+    }
+
+    function clearConsole() {
+        document.getElementById('consoleOutput').innerHTML = "";
+        terminalOutputBuffer = "";
+        document.getElementById('aiExplainer').style.display = 'none';
+    }
+
+    // PYODIDE EXECUTION ENGINE
+    let pyodide = null;
+    let isPyodideLoading = true;
+
+    async function initPyodideEngine() {
+        const loader = document.getElementById('pyodideLoader');
+        try {
+            pyodide = await loadPyodide({
+                stdout: (text) => {
+                    appendConsoleLine(text);
+                },
+                stderr: (text) => {
+                    appendConsoleLine(text, 'error');
+                }
+            });
+
+            // Set up input dialog mock
+            await pyodide.runPythonAsync(`
+import builtins
+import js
+
+def custom_input(prompt=""):
+    val = js.prompt(prompt)
+    if val is None:
+        return ""
+    print(prompt + val)
+    return val
+
+builtins.input = custom_input
+            `);
+
+            isPyodideLoading = false;
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 300);
+
+            // Print success init
+            document.getElementById('consoleOutput').innerHTML = "";
+            appendConsoleLine("Python 3 environment sandbox initiated. System secure.", "system");
+            appendConsoleLine("Click 'Run Code' to execute your script.", "system");
+        } catch (err) {
+            console.error(err);
+            document.getElementById('loaderText').innerHTML = `<span style="color: #ef4444; font-weight:700;">Initialization Failed</span><br><span style="font-size:0.75rem; color:var(--text-dim);">Unable to load WASM engine. Check connection.</span>`;
+        }
+    }
+
+    // RUN BUTTON TRIGGER
+    async function runPythonCode() {
+        if (isPyodideLoading) return;
+
+        const runBtn = document.querySelector('.run-btn');
+        const userCode = codeEditor.value;
+
+        runBtn.disabled = true;
+        runBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Running...';
+
+        clearConsole();
+        appendConsoleLine("Executing script inside browser WASM sandbox...", "system");
+
+        try {
+            // Run User Script
+            await pyodide.runPythonAsync(userCode);
+
+            // Execute challenge test verification
+            const lesson = lessons[currentLessonIndex];
+            let challengePassed = false;
+
+            if (lesson.validatorType === 'output') {
+                challengePassed = terminalOutputBuffer.includes(lesson.expectedOutput);
+            } else if (lesson.validatorType === 'python') {
+                try {
+                    const pyCheck = await pyodide.runPythonAsync(lesson.validatorScript);
+                    challengePassed = (pyCheck === true || pyCheck === 1);
+                } catch (e) {
+                    challengePassed = false;
+                }
+            }
+
+            if (challengePassed) {
+                markLessonComplete(lesson.id);
+            } else {
+                appendConsoleLine("\n[SYSTEM] Run complete. Output does not match challenge targets. Review theory instructions.", "system");
+            }
+
+        } catch (err) {
+            const errorMsg = err.message;
+            appendConsoleLine(errorMsg, "error");
+            
+            // Analyze Traceback Error and Trigger AI explainer
+            const explanation = analyzePythonError(errorMsg);
+            displayAIExplanation(explanation);
+        } finally {
+            runBtn.disabled = false;
+            runBtn.innerHTML = '<i class="fas fa-play"></i> Run Code';
+        }
+    }
+
+    // ERROR EXPLAINER ENGINE
+    function analyzePythonError(message) {
+        let type = "Unknown Interpreter Issue";
+        let desc = "We encountered a runtime or compile error executing your Python scripts.";
+        let fix = "Examine the console log traceback above for details on line numbers.";
+
+        if (message.includes("SyntaxError")) {
+            type = "Syntax Error";
+            if (message.includes("expected ':'") || message.includes("expected ':'")) {
+                desc = "You missed a colon (<code>:</code>) at the end of a header line (such as an <code>if</code>, <code>elif</code>, <code>else</code>, <code>for</code>, <code>while</code>, or <code>def</code> statement).";
+                fix = "Check the line specified and append a colon (<code>:</code>) to the end. For example:<br><code>if score >= 80:</code> instead of <code>if score >= 80</code>";
+            } else if (message.includes("was never closed") || message.includes("unmatched")) {
+                desc = "You opened brackets or parentheses (e.g. <code>(</code>, <code>[</code>, <code>{</code>) or quotes but forgot to close them with a matching symbol.";
+                fix = "Find the line number and verify every opening parenthetical or quotation sign has its matching closing symbol.";
+            } else if (message.includes("invalid syntax")) {
+                desc = "The interpreter doesn't understand the structure of your line. This usually points to misspelled keywords or symbols out of order.";
+                fix = "Look for typing errors or misplaced commas/quotes on that line.";
+            } else {
+                desc = "Your statement violates structural formatting rules of Python.";
+                fix = "Double-check coding syntax spelling and symbol pairings.";
+            }
+        } 
+        else if (message.includes("NameError")) {
+            type = "Name Error";
+            let match = message.match(/name '([^']+)' is not defined/);
+            let name = match ? match[1] : "variable/function";
+            desc = `You called an identifier name <code>${name}</code> which does not exist, hasn't been defined yet, or is misspelled.`;
+            fix = `Ensure <code>${name}</code> is typed exactly correct. Variables must be defined (e.g. <code>${name} = 10</code>) <em>before</em> they are used in lower lines of your script.`;
+        } 
+        else if (message.includes("IndentationError")) {
+            type = "Indentation Error";
+            desc = "Python requires structured alignment spaces to know which blocks of code belong inside controls (like loops or conditionals). Your indentation spacing is uneven.";
+            fix = "Format all lines belonging inside that block with the exact same space indentation (typically 4 spaces or 1 tab). Do not mix tabs and spaces.";
+        } 
+        else if (message.includes("TypeError")) {
+            type = "Type Error";
+            desc = "You attempted to perform an action combining data types that do not support each other (e.g. adding a text string to an integer: <code>'Age: ' + 25</code>).";
+            fix = "Use type casting to unify data types. Wrap variables to convert them: <code>str(25)</code> to text, or <code>int('123')</code> to integer.";
+        } 
+        else if (message.includes("ZeroDivisionError")) {
+            type = "Zero Division Error";
+            desc = "You calculated a mathematical formula trying to divide a value by 0. Mathematically, division by zero is impossible.";
+            fix = "Check your variables or calculations to prevent denominators evaluating to zero, or write an if check beforehand: <code>if divisor != 0:</code>";
+        } 
+        else if (message.includes("IndexError")) {
+            type = "Index Error";
+            desc = "You tried to fetch a index position from a list that is outside its boundaries (e.g. asking for list item 5 in a list with only 3 elements).";
+            fix = "Remember that indexing begins at <code>0</code>, and the max index is <code>len(list) - 1</code>. Ensure index targets fall inside these bounds.";
+        } 
+        else if (message.includes("KeyError")) {
+            type = "Key Error";
+            let match = message.match(/'([^']+)'/);
+            let key = match ? match[1] : "key";
+            desc = `You attempted to look up dictionary records using a key name <code>${key}</code> which does not exist.`;
+            fix = `Verify spelling of the dictionary key, or use the safer <code>.get()</code> dictionary function to fetch records without crashing (e.g., <code>hacker.get('${key}', 'Offline')</code>).`;
+        } 
+        else if (message.includes("ValueError")) {
+            type = "Value Error";
+            desc = "A conversion function received data of correct structure but invalid content (such as converting literal characters <code>int('hacker')</code> to integers).";
+            fix = "Ensure the contents of variables passed into conversions represent numbers (like <code>int('85')</code>).";
+        } 
+        else if (message.includes("AttributeError")) {
+            type = "Attribute Error";
+            desc = "You tried to execute a function method on an object variable which doesn't support that attribute (like calling <code>.append()</code> on a string variable).";
+            fix = "Verify the object variable type. Lists support <code>.append()</code>, while strings use functions like <code>.upper()</code> or <code>.replace()</code>.";
+        }
+
+        return { type, desc, fix };
+    }
+
+    function displayAIExplanation(errObj) {
+        const explainer = document.getElementById('aiExplainer');
+        const consoleEl = document.getElementById('consoleOutput');
+        
+        // Remove existing if any
+        const oldCard = document.getElementById('aiExplainerCard');
+        if (oldCard) oldCard.remove();
+
+        const card = document.createElement('div');
+        card.id = 'aiExplainerCard';
+        card.className = 'ai-explainer';
+        card.style.display = 'block';
+        card.innerHTML = `
+            <div class="ai-header">
+                <i class="fas fa-robot"></i> AI Code Explainer
+            </div>
+            <div class="ai-content">
+                <div class="ai-section-title">Detected Issue</div>
+                <div style="font-weight: 600; color: #fbbf24; margin-bottom: 5px;">${errObj.type}</div>
+                <div>${errObj.desc}</div>
+                
+                <div class="ai-section-title" style="margin-top: 10px;">Suggested Solution</div>
+                <div>${errObj.fix}</div>
+            </div>
+        `;
+        
+        // Append card into terminal output so it naturally flows in the reader's view!
+        consoleEl.appendChild(card);
+        consoleEl.scrollTop = consoleEl.scrollHeight;
+    }
+
+    // RUN INITIALIZERS ON DOM LOAD
+    window.addEventListener('DOMContentLoaded', () => {
+        buildLessonList();
+        selectLesson(0);
+        initPyodideEngine();
+    });
+</script>
+
+</body>
+</html>
