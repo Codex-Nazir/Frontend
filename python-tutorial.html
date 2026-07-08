@@ -1622,12 +1622,18 @@ builtins.input = custom_input
         consoleEl.scrollTop = consoleEl.scrollHeight;
     }
 
-    // RUN INITIALIZERS ON DOM LOAD
-    window.addEventListener('DOMContentLoaded', () => {
+    // RUN INITIALIZERS ON DOM LOAD (Safe from Document Ready race conditions)
+    function initializeAppContent() {
         buildLessonList();
         selectLesson(0);
         initPyodideEngine();
-    });
+    }
+
+    if (document.readyState === 'loading') {
+        window.addEventListener('DOMContentLoaded', initializeAppContent);
+    } else {
+        initializeAppContent();
+    }
 </script>
 
 </body>
