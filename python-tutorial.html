@@ -9,7 +9,28 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    
+    <!-- Global Error Interceptor for Diagnostics -->
+    <script>
+        window.addEventListener('error', function(e) {
+            console.error("Diagnostic Error Captured:", e);
+            setTimeout(() => {
+                const el = document.getElementById('loaderText');
+                if (el) {
+                    el.innerHTML = `<span style="color: #ef4444; font-weight:700; font-family: monospace; display: block; text-align: left; font-size: 0.8rem; background: rgba(0,0,0,0.4); padding: 10px; border-radius: 6px; border: 1px solid rgba(239,68,68,0.2);">🔴 Load Error: ${e.message}<br>Line: ${e.lineno}<br>Source: ${e.filename ? e.filename.split('/').pop() : 'unknown'}</span>`;
+                }
+            }, 100);
+        });
+        window.addEventListener('unhandledrejection', function(e) {
+            console.error("Diagnostic Rejection Captured:", e);
+            setTimeout(() => {
+                const el = document.getElementById('loaderText');
+                if (el) {
+                    el.innerHTML = `<span style="color: #ef4444; font-weight:700; font-family: monospace; display: block; text-align: left; font-size: 0.8rem; background: rgba(0,0,0,0.4); padding: 10px; border-radius: 6px; border: 1px solid rgba(239,68,68,0.2);">🔴 Rejection: ${e.reason}</span>`;
+                }
+            }, 100);
+        });
+    </script>
+
     <!-- Pyodide CDN for WebAssembly Python -->
     <script src="https://cdn.jsdelivr.net/pyodide/v0.26.1/full/pyodide.js"></script>
 
