@@ -1374,6 +1374,7 @@ print(my_tool.run())</div>
         const loader = document.getElementById('pyodideLoader');
         try {
             pyodide = await loadPyodide({
+                indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.1/full/",
                 stdout: (text) => {
                     appendConsoleLine(text);
                 },
