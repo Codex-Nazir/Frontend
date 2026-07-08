@@ -1282,7 +1282,8 @@ print(my_tool.run())</div>
         updateLineNumbers();
         
         // Clear workspace outputs
-        document.getElementById('aiExplainer').style.display = 'none';
+        const oldCard = document.getElementById('aiExplainerCard');
+        if (oldCard) oldCard.remove();
     }
 
     // Copy theory code snippets directly to Workspace code editor
@@ -1384,7 +1385,8 @@ print(my_tool.run())</div>
     function clearConsole() {
         document.getElementById('consoleOutput').innerHTML = "";
         terminalOutputBuffer = "";
-        document.getElementById('aiExplainer').style.display = 'none';
+        const oldCard = document.getElementById('aiExplainerCard');
+        if (oldCard) oldCard.remove();
     }
 
     // PYODIDE EXECUTION ENGINE
@@ -1557,7 +1559,6 @@ builtins.input = custom_input
     }
 
     function displayAIExplanation(errObj) {
-        const explainer = document.getElementById('aiExplainer');
         const consoleEl = document.getElementById('consoleOutput');
         
         // Remove existing if any
