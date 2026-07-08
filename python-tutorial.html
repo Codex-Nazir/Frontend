@@ -1319,7 +1319,7 @@ print(my_tool.run())</div>
         localStorage.setItem(`python_code_lesson_${lesson.id}`, codeEditor.value);
     });
 
-    // Handle Tab key insertion inside custom textarea editor
+    // Handle keyboard shortcuts (Tab & auto-indentation on Enter) inside custom textarea editor
     codeEditor.addEventListener('keydown', (e) => {
         if (e.key === 'Tab') {
             e.preventDefault();
@@ -1330,6 +1330,40 @@ print(my_tool.run())</div>
             // put caret in correct position
             codeEditor.selectionStart = codeEditor.selectionEnd = start + 4;
             updateLineNumbers();
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            const start = codeEditor.selectionStart;
+            const end = codeEditor.selectionEnd;
+            const value = codeEditor.value;
+
+            // Get text before cursor
+            const textBeforeCursor = value.substring(0, start);
+            const lines = textBeforeCursor.split('\n');
+            const currentLine = lines[lines.length - 1];
+
+            // Match leading spaces or tabs of current line
+            const leadingSpacesMatch = currentLine.match(/^([ \t]*)/);
+            let indentation = leadingSpacesMatch ? leadingSpacesMatch[1] : "";
+
+            // Check if current line ends with a colon (ignoring comments/whitespace)
+            const cleanLine = currentLine.replace(/#.*$/, '').trim();
+            if (cleanLine.endsWith(':')) {
+                indentation += "    "; // Indent further for the new block
+            }
+
+            // Insert newline and appropriate indentation spaces
+            codeEditor.value = value.substring(0, start) + "\n" + indentation + value.substring(end);
+            
+            // Reposition caret
+            const newCursorPos = start + 1 + indentation.length;
+            codeEditor.selectionStart = codeEditor.selectionEnd = newCursorPos;
+
+            updateLineNumbers();
+            syncScroll();
+            
+            // Save draft
+            const lesson = lessons[currentLessonIndex];
+            localStorage.setItem(`python_code_lesson_${lesson.id}`, codeEditor.value);
         }
     });
 
